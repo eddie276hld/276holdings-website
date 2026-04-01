@@ -1,4 +1,5 @@
 "use client";
+import { navigateTo } from "@/lib/navigation";
 
 import { useState, useEffect, useRef } from "react";
 import { Reveal } from "@/components/ui/Reveal";
@@ -115,5 +116,5 @@ function Ab({ setPage }: { setPage: (id: string) => void }) {
 }
 
 export default function AboutPage() {
-  return <Ab setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <Ab setPage={navigateTo} />;
 }

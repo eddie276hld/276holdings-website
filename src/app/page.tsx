@@ -1,4 +1,5 @@
 "use client";
+import { navigateTo } from "@/lib/navigation";
 
 import { useState, useEffect, useRef } from "react";
 import { FileText, Brain, Wallet, Clock, ShieldOff, BarChart3, X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -223,5 +224,5 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
 }
 
 export default function HomePage() {
-  return <Home setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <Home setPage={navigateTo} />;
 }

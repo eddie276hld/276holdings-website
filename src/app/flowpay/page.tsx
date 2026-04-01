@@ -1,4 +1,5 @@
 "use client";
+import { navigateTo } from "@/lib/navigation";
 
 import { useState, useEffect, useRef } from "react";
 import { Zap, ArrowLeftRight, ShieldCheck, TrendingUp, UtensilsCrossed, HeartPulse, Wrench, Cpu, Sparkles, Package, Leaf } from "lucide-react";
@@ -66,5 +67,5 @@ function FP({ setPage }: { setPage: (id: string) => void }) {
 }
 
 export default function FlowPayPage() {
-  return <FP setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <FP setPage={navigateTo} />;
 }

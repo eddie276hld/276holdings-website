@@ -38,7 +38,7 @@ export default function NotFound() {
           요청하신 페이지가 존재하지 않거나 이동되었습니다.
         </p>
         <a
-          href="/"
+          href="/276holdings-website/"
           style={{
             padding: "14px 32px",
             background: "var(--br)",

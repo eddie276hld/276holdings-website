@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import Nav from "@/components/layout/Nav";
 import Foot from "@/components/layout/Footer";
 import NoticePopup from "@/components/home/NoticePopup";
+import { navigateTo } from "@/lib/navigation";
 
 export default function ClientLayout({
   children,
@@ -28,17 +29,11 @@ export default function ClientLayout({
 
   const currentPage = pageMap[pathname] || "home";
 
-  // Navigation handler using Next.js router
-  const setPage = (page: string) => {
-    const url = page === "home" ? "/" : `/${page}`;
-    window.location.href = url;
-  };
-
   return (
     <>
-      <Nav setPage={setPage} current={currentPage} />
+      <Nav setPage={navigateTo} current={currentPage} />
       <main>{children}</main>
-      <Foot setPage={setPage} />
+      <Foot setPage={navigateTo} />
       {pathname === "/" && <NoticePopup />}
     </>
   );

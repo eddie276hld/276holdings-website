@@ -1,4 +1,5 @@
 "use client";
+import { navigateTo } from "@/lib/navigation";
 
 import { useState, useEffect, useRef } from "react";
 import { BarChart3, Search, Building2, Activity, MessageCircle, X } from "lucide-react";
@@ -63,5 +64,5 @@ function FS({ setPage }: { setPage: (id: string) => void }) {
 }
 
 export default function FlowScorePage() {
-  return <FS setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <FS setPage={navigateTo} />;
 }

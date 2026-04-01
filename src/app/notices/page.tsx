@@ -1,4 +1,5 @@
 "use client";
+import { navigateTo } from "@/lib/navigation";
 
 import { useState, useEffect, useRef } from "react";
 import { Reveal } from "@/components/ui/Reveal";
@@ -57,5 +58,5 @@ function Notices({ setPage }: { setPage: (id: string) => void }) {
 }
 
 export default function NoticesPage() {
-  return <Notices setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <Notices setPage={navigateTo} />;
 }

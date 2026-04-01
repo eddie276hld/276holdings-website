@@ -1,4 +1,5 @@
 "use client";
+import { navigateTo } from "@/lib/navigation";
 
 import { useState, useEffect, useRef } from "react";
 import { Clock, Building2, MessageCircle, CheckCircle2, X, Bell, Settings, Save, Edit3, Trash2, Plus, Eye, Calendar, Globe, Loader, Users } from "lucide-react";
@@ -315,7 +316,7 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
         <div style={{ marginBottom: 24 }}>
           <label style={lbl}>로고 이미지 URL</label>
           <input value={ptForm.logo} onChange={e => setPtForm({ ...ptForm, logo: e.target.value })} placeholder="https://... (비워두면 텍스트로 표시)" style={inp}/>
-          <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 6 }}>로고 이미지는 PARTNER_LOGOS 상수에 직접 등록이 필요합니다</p>
+          <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 6 }}>로고 이미지는 public/logos/ 폴더에 PNG 파일을 추가해 주세요</p>
         </div>
         {ptForm.logo && <div style={{ marginBottom: 20, padding: 16, background: "var(--alt)", borderRadius: 8, textAlign: "center" }}><img src={ptForm.logo} alt="미리보기" style={{ maxHeight: 32, objectFit: "contain" }}/></div>}
         <div style={{ display: "flex", gap: 12, justifyContent: "flex-end" }}>
@@ -808,5 +809,5 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
 }
 
 export default function AdminPage() {
-  return <Admin setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <Admin setPage={navigateTo} />;
 }

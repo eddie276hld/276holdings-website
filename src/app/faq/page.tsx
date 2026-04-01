@@ -1,4 +1,5 @@
 "use client";
+import { navigateTo } from "@/lib/navigation";
 import { useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SH } from "@/components/ui/SectionHeader";
@@ -75,5 +76,5 @@ function Faq({ setPage }: { setPage: (id: string) => void }) {
 }
 
 export default function FaqPage() {
-  return <Faq setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <Faq setPage={navigateTo} />;
 }

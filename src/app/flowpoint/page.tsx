@@ -1,4 +1,5 @@
 "use client";
+import { navigateTo } from "@/lib/navigation";
 
 import { useState, useEffect, useRef } from "react";
 import { FolderOpen, Link2, ArrowRightLeft, Coins, FileWarning, Hourglass, Lock, Link } from "lucide-react";
@@ -64,5 +65,5 @@ function FPt({ setPage }: { setPage: (id: string) => void }) {
 }
 
 export default function FlowPointPage() {
-  return <FPt setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <FPt setPage={navigateTo} />;
 }

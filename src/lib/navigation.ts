@@ -1,11 +1,11 @@
 // Navigation utility for transitional period
 // Eventually replace with Next.js router/Link
 
-export function createSetPage(): (page: string) => void {
-  return (page: string) => {
-    const url = page === "home" ? "/" : `/${page}`;
-    window.location.href = url;
-  };
+export const BASE_PATH = "/276holdings-website";
+
+export function navigateTo(page: string): void {
+  const path = page === "home" ? "" : `/${page}`;
+  window.location.href = `${BASE_PATH}${path}`;
 }
 
 // Route mapping
