@@ -1,0 +1,41 @@
+// Brand constants for 276 Holdings
+export const BRAND = {
+  colors: {
+    brand: "#a89586",
+    brandWarm: "#c8a882",
+    brandLight: "#d4c4b0",
+    navyDeep: "#080e1a",
+    navy: "#0f1929",
+    navyMid: "#132240",
+    green: "#10b981",
+    text: {
+      dark: "#1e293b",
+      mid: "#64748b",
+      light: "#94a3b8",
+      border: "#e2e8f0",
+      borderLight: "#f1f5f9",
+    },
+  },
+  fonts: {
+    display: "Pretendard",
+    body: "Pretendard",
+    mono: "JetBrains Mono",
+  },
+  css: {
+    "--br": "#a89586",
+    "--bw": "#c8a882",
+    "--bl": "#d4c4b0",
+    "--ny": "#0f1929",
+    "--nd": "#080e1a",
+    "--gn": "#10b981",
+    "--td": "#1e293b",
+    "--tm": "#64748b",
+    "--tl": "#94a3b8",
+    "--bd": "#e2e8f0",
+    "--blt": "#f1f5f9",
+    "--alt": "#f8fafc",
+    "--fd": "Pretendard, system-ui, -apple-system, sans-serif",
+    "--fb": "Pretendard, system-ui, sans-serif",
+    "--fm": "'JetBrains Mono', monospace",
+  },
+} as const;
