@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git remote:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(npm run:*)",
+      "Bash(sed -i 's/function Ab\\({ setPage }\\) {/function Ab\\({ setPage }: { setPage: \\(id: string\\) => void }\\) {/' src/app/about/page.tsx)",
+      "Bash(sed -i 's/function Home\\({ setPage }\\) {/function Home\\({ setPage }: { setPage: \\(id: string\\) => void }\\) {/' src/app/page.tsx)",
+      "Bash(sed -i 's/function Admin\\({ setPage }\\) {/function Admin\\({ setPage }: { setPage: \\(id: string\\) => void }\\) {/' src/app/admin/page.tsx)",
+      "Bash(sed -i 's/function FP\\({ setPage }\\) {/function FP\\({ setPage }: { setPage: \\(id: string\\) => void }\\) {/' src/app/flowpay/page.tsx)",
+      "Bash(sed -i 's/function FS\\({ setPage }\\) {/function FS\\({ setPage }: { setPage: \\(id: string\\) => void }\\) {/' src/app/flowscore/page.tsx)",
+      "Bash(sed:*)",
+      "Bash(sed -i 's/const inp = { width: \"100%\", padding: \"10px 14px\", border: \"1px solid #e2e8f0\", borderRadius: 8, fontSize: 14, boxSizing: \"border-box\" };/const inp: React.CSSProperties = { width: \"100%\", padding: \"10px 14px\", border: \"1px solid #e2e8f0\", borderRadius: 8, fontSize: 14, boxSizing: \"border-box\" };/' src/app/admin/page.tsx)",
+      "Bash(sed -i 's/const lbl = { fontSize: 12, fontWeight: 600, color: \"var\\(--td\\)\", marginBottom: 6, display: \"block\" };/const lbl: React.CSSProperties = { fontSize: 12, fontWeight: 600, color: \"var\\(--td\\)\", marginBottom: 6, display: \"block\" };/' src/app/admin/page.tsx)",
+      "Bash(sed -i 's/return <Ct setPage={\\(p: string\\) => window.location.href = \"\\\\/\" + \\(p === \"home\" ? \"\" : p\\)} \\\\/>;/return <Ct \\\\/>;/' src/app/contact/page.tsx)",
+      "Bash(sed -i 's/return <Esg setPage={\\(p: string\\) => window.location.href = \"\\\\/\" + \\(p === \"home\" ? \"\" : p\\)} \\\\/>;/return <Esg \\\\/>;/' src/app/esg/page.tsx)",
+      "Bash(sed -i 's/return <Terms setPage={\\(p: string\\) => window.location.href = \"\\\\/\" + \\(p === \"home\" ? \"\" : p\\)} \\\\/>;/return <Terms \\\\/>;/' src/app/terms/page.tsx)",
+      "Bash(rm:*)"
+    ]
+  }
+}
