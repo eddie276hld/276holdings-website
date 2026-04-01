@@ -12,7 +12,7 @@ import NoticePopup from "@/components/home/NoticePopup";
 import { usePress } from "@/hooks/usePress";
 
 // === HOME PAGE ===
-function Home({ setPage }) {
+function Home({ setPage }: { setPage: (id: string) => void }) {
   return <>
     <NoticePopup setPage={setPage}/>
     <section className="hero-bg" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "120px 24px 80px", position: "relative" }}>

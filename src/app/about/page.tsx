@@ -11,7 +11,7 @@ import { usePartners } from "@/hooks/usePartners";
 import { PARTNER_CATEGORIES } from "@/data/partners";
 
 // === ABOUT PAGE ===
-function Ab({ setPage }) {
+function Ab({ setPage }: { setPage: (id: string) => void }) {
   return <>
     <section className="hero-bg" style={{padding:"140px 24px 100px",position:"relative"}}>
       <div className="hero-orb" style={{width:400,height:400,background:"rgba(168,149,134,.06)",top:"5%",left:"50%",animation:"orb 10s ease infinite"}}/>
@@ -60,7 +60,7 @@ function Ab({ setPage }) {
           const years = [...new Set(hist.map(h => h.y))].sort();
           return years.map((yr, yi) => {
             const items = hist.filter(h => h.y === yr);
-            const tgColor = (tg) => ({ bg: tg==="투자"?"rgba(168,149,134,.1)":tg==="수상"?"rgba(16,185,129,.08)":tg==="현재"?"rgba(200,168,130,.12)":"var(--alt)", fg: tg==="투자"?"var(--br)":tg==="수상"?"var(--gn)":tg==="현재"?"var(--bw)":"var(--tm)" });
+            const tgColor = (tg: string) => ({ bg: tg==="투자"?"rgba(168,149,134,.1)":tg==="수상"?"rgba(16,185,129,.08)":tg==="현재"?"rgba(200,168,130,.12)":"var(--alt)", fg: tg==="투자"?"var(--br)":tg==="수상"?"var(--gn)":tg==="현재"?"var(--bw)":"var(--tm)" });
             return <Reveal key={yr} delay={yi * .08}>
               <div style={{display:"flex",gap:20,alignItems:"stretch",background:"#fff",borderRadius:12,border:"1px solid var(--bd)",overflow:"hidden"}}>
                 <div style={{display:"flex",alignItems:"center",justifyContent:"center",minWidth:72,background:"var(--ny)",padding:"20px 0"}}>
@@ -95,10 +95,10 @@ function Ab({ setPage }) {
               </div>
               <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill, minmax(140px, 1fr))",gap:6}}>
                 {items.map(p => (
-                  <div key={p.id} style={{background:"var(--alt)",borderRadius:8,padding: PARTNER_LOGOS[p.nm] ? "8px 12px" : "11px 14px",textAlign:"center",fontSize:12,fontWeight:600,color:"var(--tm)",transition:"all .2s",cursor:"default",display:"flex",alignItems:"center",justifyContent:"center",minHeight:40}}
+                  <div key={p.id} style={{background:"var(--alt)",borderRadius:8,padding: (PARTNER_LOGOS as Record<string, string>)[p.nm] ? "8px 12px" : "11px 14px",textAlign:"center",fontSize:12,fontWeight:600,color:"var(--tm)",transition:"all .2s",cursor:"default",display:"flex",alignItems:"center",justifyContent:"center",minHeight:40}}
                     onMouseEnter={e=>{e.currentTarget.style.background="rgba(168,149,134,.08)";e.currentTarget.style.color="var(--td)"}}
                     onMouseLeave={e=>{e.currentTarget.style.background="var(--alt)";e.currentTarget.style.color="var(--tm)"}}
-                  >{PARTNER_LOGOS[p.nm] ? <img src={PARTNER_LOGOS[p.nm]} alt={p.nm} title={p.nm} style={{maxWidth:"100%",maxHeight:28,objectFit:"contain",filter:"grayscale(30%)",opacity:.75,transition:"all .3s"}} onMouseEnter={e=>{e.currentTarget.style.filter="grayscale(0%)";e.currentTarget.style.opacity="1"}} onMouseLeave={e=>{e.currentTarget.style.filter="grayscale(30%)";e.currentTarget.style.opacity=".75"}}/> : p.nm}</div>
+                  >{(PARTNER_LOGOS as Record<string, string>)[p.nm] ? <img src={(PARTNER_LOGOS as Record<string, string>)[p.nm]} alt={p.nm} title={p.nm} style={{maxWidth:"100%",maxHeight:28,objectFit:"contain",filter:"grayscale(30%)",opacity:.75,transition:"all .3s"}} onMouseEnter={e=>{e.currentTarget.style.filter="grayscale(0%)";e.currentTarget.style.opacity="1"}} onMouseLeave={e=>{e.currentTarget.style.filter="grayscale(30%)";e.currentTarget.style.opacity=".75"}}/> : p.nm}</div>
                 ))}
               </div>
             </div>

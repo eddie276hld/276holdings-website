@@ -177,5 +177,5 @@ function Esg() {
 }
 
 export default function EsgPage() {
-  return <Esg setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <Esg />;
 }

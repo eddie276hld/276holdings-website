@@ -1,7 +1,7 @@
 // Utility functions
 
 // Summarize notice content for popup display
-export function summarizeForPopup(content) {
+export function summarizeForPopup(content: string): { label: string; value: string }[] {
   if (!content) return [];
   const lines = content.split("\n").map(l => l.trim()).filter(Boolean);
   const items = [];

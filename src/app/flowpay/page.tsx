@@ -10,7 +10,7 @@ import LogoMarquee from "@/components/home/LogoMarquee";
 import FlowPayVisual from "@/components/service/FlowPayVisual";
 
 // === FLOWPAY PAGE ===
-function FP({ setPage }) {
+function FP({ setPage }: { setPage: (id: string) => void }) {
   return <>
     <section className="hero-bg" style={{ padding: "140px 24px 100px", position: "relative", overflow: "hidden" }}>
       <div style={{ position:"absolute", inset:0, display:"flex", justifyContent:"flex-end" }}>

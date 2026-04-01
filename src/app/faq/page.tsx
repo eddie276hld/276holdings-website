@@ -5,8 +5,8 @@ import { SH } from "@/components/ui/SectionHeader";
 import { useFaqs } from "@/hooks/useFaqs";
 
 // === FAQ PAGE (GEO-optimized with question-format H2s) ===
-function Faq({ setPage }) {
-  const [open, setOpen] = useState(null);
+function Faq({ setPage }: { setPage: (id: string) => void }) {
+  const [open, setOpen] = useState<any>(null);
   const toggle = (i) => setOpen(open === i ? null : i);
   const { faqs } = useFaqs();
   const cats = [...new Set(faqs.map(f => f.cat))];

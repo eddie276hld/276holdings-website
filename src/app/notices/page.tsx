@@ -5,8 +5,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { useNotices } from "@/hooks/useNotices";
 
 // === NOTICES PAGE ===
-function Notices({ setPage }) {
-  const [selected, setSelected] = useState(null);
+function Notices({ setPage }: { setPage: (id: string) => void }) {
+  const [selected, setSelected] = useState<any>(null);
   const { notices, loaded } = useNotices();
 
   const detail = notices.find(n => n.id === selected);

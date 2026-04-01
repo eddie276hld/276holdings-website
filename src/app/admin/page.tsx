@@ -15,7 +15,7 @@ import { HISTORY_CATEGORIES } from "@/data/history";
 import { summarizeForPopup } from "@/lib/utils";
 
 // === ADMIN PAGE ===
-function Admin({ setPage }) {
+function Admin({ setPage }: { setPage: (id: string) => void }) {
   const { notices, loaded, save } = useNotices();
   const { press, loaded: pLoaded, save: pSave } = usePress();
   const { faqs: faqItems, loaded: fLoaded, save: fSave } = useFaqs();
@@ -24,39 +24,39 @@ function Admin({ setPage }) {
   const { partners: partnerItems, loaded: ptLoaded, save: ptSave } = usePartners();
   const [tab, setTab] = useState("notices"); // notices | press | faq | history | members | partners
   const [mode, setMode] = useState("list"); // list | add | edit
-  const [editId, setEditId] = useState(null);
+  const [editId, setEditId] = useState<any>(null);
   const [form, setForm] = useState({ category: "주주총회", date: "", title: "", content: "", isPopup: false, popupStart: "", popupEnd: "" });
-  const [confirmDelete, setConfirmDelete] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState<any>(null);
+  const [preview, setPreview] = useState<any>(null);
   const [auth, setAuth] = useState(false);
   const [pw, setPw] = useState("");
   // Press states
   const [pMode, setPMode] = useState("list");
-  const [pEditId, setPEditId] = useState(null);
+  const [pEditId, setPEditId] = useState<any>(null);
   const [pForm, setPForm] = useState({ url: "", media: "", title: "", excerpt: "", date: "", image: "" });
   const [scraping, setScraping] = useState(false);
-  const [pDel, setPDel] = useState(null);
+  const [pDel, setPDel] = useState<any>(null);
   // FAQ states
   const [fMode, setFMode] = useState("list");
-  const [fEditId, setFEditId] = useState(null);
+  const [fEditId, setFEditId] = useState<any>(null);
   const [fForm, setFForm] = useState({ q: "", a: "", cat: "서비스" });
-  const [fDel, setFDel] = useState(null);
+  const [fDel, setFDel] = useState<any>(null);
   // History states
   const [hMode, setHMode] = useState("list");
-  const [hEditId, setHEditId] = useState(null);
+  const [hEditId, setHEditId] = useState<any>(null);
   const [hForm, setHForm] = useState({ y: "", e: "", tg: "서비스" });
-  const [hDel, setHDel] = useState(null);
+  const [hDel, setHDel] = useState<any>(null);
   // Member states
   const [mMode, setMMode] = useState("list");
-  const [mEditId, setMEditId] = useState(null);
+  const [mEditId, setMEditId] = useState<any>(null);
   const [mForm, setMForm] = useState({ nm: "", rl: "", d: "", img: "" });
-  const [mDel, setMDel] = useState(null);
-  const [mMsg, setMMsg] = useState(null);
+  const [mDel, setMDel] = useState<any>(null);
+  const [mMsg, setMMsg] = useState<string | null>(null);
   // Partner states
   const [ptMode, setPtMode] = useState("list");
-  const [ptEditId, setPtEditId] = useState(null);
+  const [ptEditId, setPtEditId] = useState<any>(null);
   const [ptForm, setPtForm] = useState({ nm: "", cat: "투자회사", logo: "" });
-  const [ptDel, setPtDel] = useState(null);
+  const [ptDel, setPtDel] = useState<any>(null);
 
   const CATEGORIES = ["주주총회", "정관변경", "경영현안", "공시", "기타"];
 
@@ -220,8 +220,8 @@ function Admin({ setPage }) {
   const ptHandleDelete = async (id) => { await ptSave(partnerItems.filter(p => p.id !== id)); setPtDel(null); };
 
   const fs = { fontSize: 13, color: "var(--tm)" };
-  const lbl = { fontSize: 12, fontWeight: 600, color: "var(--td)", marginBottom: 6, display: "block" };
-  const inp = { width: "100%", padding: "10px 14px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, boxSizing: "border-box" };
+  const lbl: React.CSSProperties = { fontSize: 12, fontWeight: 600, color: "var(--td)", marginBottom: 6, display: "block" };
+  const inp: React.CSSProperties = { width: "100%", padding: "10px 14px", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, boxSizing: "border-box" };
   const tabStyle = (active) => ({ padding: "10px 20px", background: active ? "var(--br)" : "none", color: active ? "#fff" : "#64748b", border: active ? "none" : "1px solid #e2e8f0", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, transition: "all .2s" });
 
   // === FORM VIEW ===
@@ -279,7 +279,7 @@ function Admin({ setPage }) {
           </div>
           <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 8 }}>
             {form.popupStart && form.popupEnd
-              ? `${form.popupStart} ~ ${form.popupEnd} (${Math.max(0, Math.ceil((new Date(form.popupEnd) - new Date(form.popupStart)) / 86400000) + 1)}일간 노출)`
+              ? `${form.popupStart} ~ ${form.popupEnd} (${Math.max(0, Math.ceil((new Date(form.popupEnd).getTime() - new Date(form.popupStart).getTime()) / 86400000) + 1)}일간 노출)`
               : form.popupStart ? `${form.popupStart}부터 종료일 미지정 (무기한 노출)` : "기간을 설정하지 않으면 팝업이 무기한 노출됩니다"}
           </p>
         </div>}

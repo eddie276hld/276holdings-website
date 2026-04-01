@@ -46,5 +46,5 @@ function Ct() {
 }
 
 export default function ContactPage() {
-  return <Ct setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <Ct />;
 }

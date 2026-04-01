@@ -4,9 +4,9 @@ import { Bell, X } from "lucide-react";
 import { useNotices } from "@/hooks/useNotices";
 import { summarizeForPopup } from "@/lib/utils";
 
-function NoticePopup({ setPage }) {
+function NoticePopup({ setPage }: { setPage: (id: string) => void }) {
   const [show, setShow] = useState(false);
-  const [popup, setPopup] = useState(null);
+  const [popup, setPopup] = useState<any>(null);
 
   useEffect(() => {
     let dismissed = false;

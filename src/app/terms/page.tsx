@@ -79,5 +79,5 @@ function Terms() {
 }
 
 export default function TermsPage() {
-  return <Terms setPage={(p: string) => window.location.href = "/" + (p === "home" ? "" : p)} />;
+  return <Terms />;
 }

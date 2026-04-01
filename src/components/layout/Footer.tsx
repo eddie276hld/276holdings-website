@@ -1,7 +1,7 @@
 "use client";
 import { Logo276 } from "@/components/ui/Logo276";
 
-function Foot({ setPage }) {
+function Foot({ setPage }: { setPage: (id: string) => void }) {
   return <footer style={{ background: "var(--nd)", color: "#fff", padding: "80px 24px 40px" }}>
     <div style={{ maxWidth: 1200, margin: "0 auto" }}>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 48, marginBottom: 64 }}>

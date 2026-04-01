@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Logo276 } from "@/components/ui/Logo276";
 
-function Nav({ page, setPage }) {
+function Nav({ page, setPage }: { page?: string; setPage: (id: string) => void; current?: string }) {
   const [scr, setScr] = useState(false);
   const [menu, setMenu] = useState(false);
   const [dd, setDd] = useState(false);
