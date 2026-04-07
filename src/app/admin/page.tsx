@@ -42,11 +42,15 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
   const [fEditId, setFEditId] = useState<any>(null);
   const [fForm, setFForm] = useState({ q: "", a: "", cat: "서비스" });
   const [fDel, setFDel] = useState<any>(null);
+  const [fCustomCat, setFCustomCat] = useState("");
+  const [fShowCustom, setFShowCustom] = useState(false);
   // History states
   const [hMode, setHMode] = useState("list");
   const [hEditId, setHEditId] = useState<any>(null);
   const [hForm, setHForm] = useState({ y: "", e: "", tg: "서비스" });
   const [hDel, setHDel] = useState<any>(null);
+  const [hCustomCat, setHCustomCat] = useState("");
+  const [hShowCustom, setHShowCustom] = useState(false);
   // Member states
   const [mMode, setMMode] = useState("list");
   const [mEditId, setMEditId] = useState<any>(null);
@@ -58,6 +62,8 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
   const [ptEditId, setPtEditId] = useState<any>(null);
   const [ptForm, setPtForm] = useState({ nm: "", cat: "투자회사", logo: "" });
   const [ptDel, setPtDel] = useState<any>(null);
+  const [ptCustomCat, setPtCustomCat] = useState("");
+  const [ptShowCustom, setPtShowCustom] = useState(false);
 
   const CATEGORIES = ["주주총회", "정관변경", "경영현안", "공시", "기타"];
 
@@ -308,9 +314,19 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
           <div><label style={lbl}>기업명 *</label><input value={ptForm.nm} onChange={e => setPtForm({ ...ptForm, nm: e.target.value })} placeholder="예: 한국투자AC" style={inp}/></div>
           <div><label style={lbl}>카테고리 *</label>
-            <select value={ptForm.cat} onChange={e => setPtForm({ ...ptForm, cat: e.target.value })} style={{ ...inp, cursor: "pointer" }}>
-              {PARTNER_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
+            <div style={{ display: "flex", gap: 8 }}>
+              <select value={ptShowCustom ? "__custom__" : ptForm.cat} onChange={e => { if (e.target.value === "__custom__") { setPtShowCustom(true); } else { setPtShowCustom(false); setPtForm({ ...ptForm, cat: e.target.value }); } }} style={{ ...inp, cursor: "pointer" }}>
+                {PARTNER_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                {[...new Set(partnerItems.map(p => p.cat))].filter(c => !PARTNER_CATEGORIES.includes(c as any)).map(c => <option key={c} value={c}>{c}</option>)}
+                <option value="__custom__">+ 새 카테고리 입력...</option>
+              </select>
+            </div>
+            {ptShowCustom && <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+              <input value={ptCustomCat} onChange={e => setPtCustomCat(e.target.value)} placeholder="새 카테고리명 입력" style={{ ...inp, flex: 1 }}/>
+              <button onClick={() => { if (ptCustomCat.trim()) { setPtForm({ ...ptForm, cat: ptCustomCat.trim() }); setPtShowCustom(false); setPtCustomCat(""); } }} style={{ padding: "10px 16px", background: "var(--br)", color: "#fff", border: "none", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>추가</button>
+              <button onClick={() => { setPtShowCustom(false); setPtCustomCat(""); }} style={{ padding: "10px 12px", background: "none", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 13, cursor: "pointer" }}>취소</button>
+            </div>}
+            {ptShowCustom && <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 6 }}>현재 선택된 카테고리: <strong>{ptForm.cat}</strong></p>}
           </div>
         </div>
         <div style={{ marginBottom: 24 }}>
@@ -341,8 +357,22 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
             : <div style={{ width: 80, height: 80, borderRadius: "50%", background: "#0f1929", margin: "0 auto 8px", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--fd)", fontWeight: 700, fontSize: 28, color: "#fff" }}>{mForm.nm ? mForm.nm[0] : "?"}</div>}
         </div>
         <div style={{ marginBottom: 16 }}>
-          <label style={lbl}>사진 이미지 URL</label>
-          <input value={mForm.img} onChange={e => setMForm({ ...mForm, img: e.target.value })} placeholder="https://... (비워두면 이니셜 아바타 표시)" style={inp}/>
+          <label style={lbl}>사진 이미지 업로드</label>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <label style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 16px", border: "2px dashed #e2e8f0", borderRadius: 8, cursor: "pointer", background: "#fafafa", transition: "border-color .2s" }}
+              onMouseEnter={e=>e.currentTarget.style.borderColor="var(--br)"} onMouseLeave={e=>e.currentTarget.style.borderColor="#e2e8f0"}>
+              <input type="file" accept="image/*" style={{ display: "none" }} onChange={e => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = ev => setMForm({ ...mForm, img: ev.target?.result as string });
+                reader.readAsDataURL(file);
+              }}/>
+              <span style={{ fontSize: 20 }}>📷</span>
+              <span style={{ fontSize: 13, color: "#64748b" }}>{mForm.img ? "다른 이미지로 변경하기" : "이미지 파일 선택 (JPG, PNG, WebP)"}</span>
+            </label>
+            {mForm.img && <button onClick={() => setMForm({ ...mForm, img: "" })} style={{ alignSelf: "flex-start", fontSize: 12, color: "#ef4444", background: "none", border: "none", cursor: "pointer", padding: 0 }}>✕ 이미지 제거</button>}
+          </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
           <div><label style={lbl}>이름 *</label><input value={mForm.nm} onChange={e => setMForm({ ...mForm, nm: e.target.value })} placeholder="예: 홍길동" style={inp}/></div>
@@ -371,9 +401,19 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
           <div><label style={lbl}>연도 *</label><input value={hForm.y} onChange={e => setHForm({ ...hForm, y: e.target.value })} placeholder="예: 2025" style={inp}/></div>
           <div><label style={lbl}>카테고리 *</label>
-            <select value={hForm.tg} onChange={e => setHForm({ ...hForm, tg: e.target.value })} style={{ ...inp, cursor: "pointer" }}>
-              {HISTORY_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
+            <div style={{ display: "flex", gap: 8 }}>
+              <select value={hShowCustom ? "__custom__" : hForm.tg} onChange={e => { if (e.target.value === "__custom__") { setHShowCustom(true); } else { setHShowCustom(false); setHForm({ ...hForm, tg: e.target.value }); } }} style={{ ...inp, cursor: "pointer" }}>
+                {HISTORY_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                {[...new Set(histItems.map(h => h.tg))].filter(c => !HISTORY_CATEGORIES.includes(c as any)).map(c => <option key={c} value={c}>{c}</option>)}
+                <option value="__custom__">+ 새 카테고리 입력...</option>
+              </select>
+            </div>
+            {hShowCustom && <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+              <input value={hCustomCat} onChange={e => setHCustomCat(e.target.value)} placeholder="새 카테고리명 입력" style={{ ...inp, flex: 1 }}/>
+              <button onClick={() => { if (hCustomCat.trim()) { setHForm({ ...hForm, tg: hCustomCat.trim() }); setHShowCustom(false); setHCustomCat(""); } }} style={{ padding: "10px 16px", background: "var(--br)", color: "#fff", border: "none", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>추가</button>
+              <button onClick={() => { setHShowCustom(false); setHCustomCat(""); }} style={{ padding: "10px 12px", background: "none", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 13, cursor: "pointer" }}>취소</button>
+            </div>}
+            {hShowCustom && <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 6 }}>현재 선택된 카테고리: <strong>{hForm.tg}</strong></p>}
           </div>
         </div>
         <div style={{ marginBottom: 24 }}>
@@ -398,9 +438,20 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
       <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 32 }}>
         <div style={{ marginBottom: 16 }}>
           <label style={lbl}>카테고리 *</label>
-          <select value={fForm.cat} onChange={e => setFForm({ ...fForm, cat: e.target.value })} style={{ ...inp, cursor: "pointer" }}>
-            {FAQ_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
+          <div style={{ display: "flex", gap: 8 }}>
+            <select value={fShowCustom ? "__custom__" : fForm.cat} onChange={e => { if (e.target.value === "__custom__") { setFShowCustom(true); } else { setFShowCustom(false); setFForm({ ...fForm, cat: e.target.value }); } }} style={{ ...inp, cursor: "pointer", flex: 1 }}>
+              {FAQ_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+              {/* dynamic cats from existing data */}
+              {[...new Set(faqItems.map(f => f.cat))].filter(c => !FAQ_CATEGORIES.includes(c as any)).map(c => <option key={c} value={c}>{c}</option>)}
+              <option value="__custom__">+ 새 카테고리 입력...</option>
+            </select>
+          </div>
+          {fShowCustom && <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+            <input value={fCustomCat} onChange={e => setFCustomCat(e.target.value)} placeholder="새 카테고리명 입력" style={{ ...inp, flex: 1 }}/>
+            <button onClick={() => { if (fCustomCat.trim()) { setFForm({ ...fForm, cat: fCustomCat.trim() }); setFShowCustom(false); setFCustomCat(""); } }} style={{ padding: "10px 16px", background: "var(--br)", color: "#fff", border: "none", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>추가</button>
+            <button onClick={() => { setFShowCustom(false); setFCustomCat(""); }} style={{ padding: "10px 12px", background: "none", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 13, cursor: "pointer" }}>취소</button>
+          </div>}
+          {fShowCustom && <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 6 }}>현재 선택된 카테고리: <strong>{fForm.cat}</strong></p>}
         </div>
         <div style={{ marginBottom: 16 }}>
           <label style={lbl}>질문 (Q) *</label>

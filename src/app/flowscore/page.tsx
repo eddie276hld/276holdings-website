@@ -20,10 +20,11 @@ function FS({ setPage }: { setPage: (id: string) => void }) {
       <div style={{ position:"absolute", inset:0, background:"linear-gradient(90deg, rgba(15,25,41,.95) 0%, rgba(15,25,41,.7) 40%, rgba(15,25,41,.15) 75%, transparent 100%)", zIndex:1 }}/>
       <div style={{maxWidth:1200,margin:"0 auto",position:"relative",zIndex:2}}>
         <div style={{ maxWidth: 600 }}>
-          <div className="slbl" style={{color:"var(--bw)"}}>FLOWSCORE — AI CREDIT INTELLIGENCE</div>
-          <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(32px,5vw,56px)",fontWeight:800,color:"#fff",lineHeight:1.1,letterSpacing:"-.03em",marginBottom:24}}>지금 이 거래, <span style={{background:"linear-gradient(135deg,var(--bw),var(--bl))",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>안전한가?</span></h1>
-          <p style={{fontSize:18,color:"rgba(255,255,255,.55)",maxWidth:520,lineHeight:1.7,marginBottom:40}}>491개 변수, 5-Dimension 분석으로 거래 단위의 리스크를 실시간 평가합니다.</p>
-          <div style={{display:"flex",gap:16,flexWrap:"wrap"}}><button className="bp" onClick={()=>setPage("contact")}>도입 문의 →</button><button className="bs">API 문서 요청</button></div>
+          <div className="slbl" style={{color:"var(--bw)"}}>AI CREDIT INTELLIGENCE</div>
+          <div style={{fontFamily:"var(--fd)",fontWeight:900,fontSize:"clamp(64px,10vw,120px)",color:"#fff",letterSpacing:"-.04em",lineHeight:.95,margin:"8px 0 20px"}}>FlowScore</div>
+          <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(20px,3vw,32px)",fontWeight:600,color:"rgba(255,255,255,.75)",lineHeight:1.3,letterSpacing:"-.02em",marginBottom:24}}>지금 이 거래, <span style={{color:"var(--bw)"}}>안전한가?</span></h1>
+          <p style={{fontSize:18,color:"rgba(255,255,255,.55)",maxWidth:520,lineHeight:1.7,marginBottom:40}}>'지금 이 순간의 거래 안정성'을 평가하는 단기 매출채권 부실 평가 정보 서비스</p>
+          <div style={{display:"flex",gap:16,flexWrap:"wrap"}}><button className="bp" onClick={()=>setPage("contact")}>도입 문의 →</button></div>
         </div>
       </div>
       <div style={{ position:"absolute",bottom:0,left:0,right:0,height:1,background:"rgba(255,255,255,0.08)",zIndex:2 }}/>
@@ -45,7 +46,7 @@ function FS({ setPage }: { setPage: (id: string) => void }) {
       </div></Reveal>
     </div></section>
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:1000,margin:"0 auto"}}>
-      <Reveal><SH label="CASE STUDIES" title="FlowScore가 실제로 작동한 순간."/></Reveal>
+      <Reveal><SH label="CASE STUDIES" title="FlowScore가 실제로 작동한 순간"/></Reveal>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))",gap:24}}>
         <Reveal><div className="card" style={{borderLeft:"none",overflow:"hidden",position:"relative",paddingTop:44}}><div style={{position:"absolute",top:0,left:0,right:0,height:4,borderRadius:"12px 12px 0 0",background:"linear-gradient(90deg, #f87171, #ef4444, #dc2626, #b91c1c)"}}/><div style={{fontFamily:"var(--fm)",fontSize:12,color:"#ef4444",marginBottom:12}}>CASE 1 — 손실 방어</div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:18,marginBottom:16}}>"가짜 우량" 포착</h3><div style={{fontSize:14,color:"var(--tm)",lineHeight:1.8}}><p><strong>기존 평가:</strong> 재무 양호 → 우량 판정</p><p><strong>FlowScore:</strong> 비재무 행동 이상 징후 포착</p><p style={{color:"#ef4444",fontWeight:600,marginTop:8}}>결과: 취급 거절 3개월 후 회생 절차 돌입</p></div></div></Reveal>
         <Reveal delay={.15}><div className="card" style={{borderLeft:"none",overflow:"hidden",position:"relative",paddingTop:44}}><div style={{position:"absolute",top:0,left:0,right:0,height:4,borderRadius:"12px 12px 0 0",background:"linear-gradient(90deg, #4ade80, #22c55e, #16a34a, #15803d)"}}/><div style={{fontFamily:"var(--fm)",fontSize:12,color:"var(--gn)",marginBottom:12}}>CASE 2 — 수익 기회 발굴</div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:18,marginBottom:16}}>고회전 소기업 발굴</h3><div style={{fontSize:14,color:"var(--tm)",lineHeight:1.8}}><p><strong>기존 평가:</strong> 업력 2년 미만, 금융 거절</p><p><strong>FlowScore:</strong> 상환 성실도 100%, 연체 0%</p><p style={{color:"var(--gn)",fontWeight:600,marginTop:8}}>결과: 누적 거래 200+, 마진율 5%</p></div></div></Reveal>
@@ -53,12 +54,13 @@ function FS({ setPage }: { setPage: (id: string) => void }) {
     </div></section>
     <section style={{padding:"96px 24px",background:"var(--alt)"}}><div style={{maxWidth:600,margin:"0 auto",textAlign:"center"}}><Reveal>
       <div className="slbl">MODEL PERFORMANCE</div>
+      <h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(22px,3.5vw,32px)",letterSpacing:"-.02em",margin:"16px 0 0"}}>더욱 안정된 수치로 검증해가고 있습니다.</h2>
       <div style={{display:"flex",justifyContent:"center",gap:48,margin:"32px 0"}}>{[{l:"AR (정확도)",v:"0.60"},{l:"KS (판별력)",v:"0.39"},{l:"부도율",v:"0.22%"}].map(m=><div key={m.l}><div style={{fontFamily:"var(--fd)",fontWeight:800,fontSize:36,color:"var(--ny)"}}>{m.v}</div><div style={{fontSize:13,color:"var(--tm)",marginTop:4}}>{m.l}</div></div>)}</div>
     </Reveal></div></section>
-    <section style={{padding:"96px 24px",background:"var(--nd)",color:"#fff",textAlign:"center"}}><Reveal><div style={{maxWidth:600,margin:"0 auto"}}>
+    <section style={{padding:"96px 24px",background:"linear-gradient(135deg,var(--ny),#132240)",color:"#fff",textAlign:"center"}}><Reveal><div style={{maxWidth:600,margin:"0 auto"}}>
       <div className="slbl" style={{color:"var(--bw)"}}>G-SCORE API</div><h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(24px,4vw,36px)",marginBottom:16}}>Risk-as-a-Service</h2>
-      <p style={{fontSize:16,color:"rgba(255,255,255,.55)",marginBottom:36,lineHeight:1.7}}>외부 금융기관과 핀테크에 API로 제공합니다. Singapore PoC 진행 중.</p>
-      <button className="bp" onClick={()=>setPage("contact")} style={{padding:"16px 36px"}}>FlowScore API 문의 →</button>
+      <p style={{fontSize:16,color:"rgba(255,255,255,.55)",marginBottom:36,lineHeight:1.7}}>금융기관과 핀테크 서비스에서 활용할 수 있습니다.</p>
+      <button className="bp" onClick={()=>setPage("contact")} style={{padding:"16px 36px"}}>도입 문의 →</button>
     </div></Reveal></section>
   </>;
 }

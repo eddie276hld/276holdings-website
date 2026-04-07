@@ -54,7 +54,7 @@ function Faq({ setPage }: { setPage: (id: string) => void }) {
                   <span style={{ fontSize: 20, color: "var(--tm)", transform: open === i ? "rotate(45deg)" : "rotate(0)", transition: "transform .2s", flexShrink: 0, marginLeft: 16 }}>+</span>
                 </button>
                 {open === i && (
-                  <div style={{ padding: "0 24px 20px", fontSize: 15, color: "var(--tm)", lineHeight: 1.75, animation: "fadeUp .3s ease" }}>
+                  <div style={{ padding: "0 24px 20px", fontSize: 15, color: "var(--tm)", lineHeight: 1.75, animation: "fadeUp .3s ease", whiteSpace: "pre-wrap" }}>
                     {faq.a}
                   </div>
                 )}

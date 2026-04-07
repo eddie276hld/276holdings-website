@@ -19,14 +19,14 @@ function Ab({ setPage }: { setPage: (id: string) => void }) {
       <div style={{maxWidth:1200,margin:"0 auto",position:"relative",zIndex:2}}>
         <div className="slbl" style={{color:"var(--bw)"}}>ABOUT 276 HOLDINGS</div>
         <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(32px,5vw,52px)",fontWeight:800,color:"#fff",lineHeight:1.1,letterSpacing:"-.03em",maxWidth:700,marginBottom:24}}>기업의 가치를 발견해<br/><span style={{background:"linear-gradient(135deg,var(--bw),var(--bl))",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>금융 자산으로 만듭니다.</span></h1>
-        <p style={{fontSize:18,color:"rgba(255,255,255,.55)",maxWidth:560,lineHeight:1.7}}>가설 단계의 스타트업이 아닙니다. 이미 시장에서 증명된 성과를 바탕으로 금융의 구조적 문제를 혁신합니다.</p>
+        <p style={{fontSize:18,color:"rgba(255,255,255,.55)",maxWidth:560,lineHeight:1.7}}>우리는 중소기업의 생산적 금융을 지원하는<br/>'Supply Chain Infra' 입니다.</p>
       </div>
       <div style={{ position:"absolute",bottom:0,left:0,right:0,height:1,background:"rgba(255,255,255,0.08)" }}/>
     </section>
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:900,margin:"0 auto"}}><Reveal>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:48}}>
         <div><div className="slbl">MISSION</div><h3 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:24,marginBottom:16,lineHeight:1.3}}>중소기업이 현금흐름 문제 없이 성장할 수 있는 금융 인프라를 만든다</h3><p style={{fontSize:15,color:"var(--tm)",lineHeight:1.7}}>연간 5,000조원 매출채권 시장의 99%는 공백입니다. 성장하는 기업이 자금 공백으로 탈락하지 않도록, 데이터와 기술로 금융의 빈틈을 채웁니다.</p></div>
-        <div><div className="slbl">VISION</div><h3 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:24,marginBottom:16,lineHeight:1.3}}>국내와 글로벌 중소기업이 가장 신뢰하는 성장 파트너</h3><p style={{fontSize:15,color:"var(--tm)",lineHeight:1.7}}>기업의 거래가 발생하는 곳마다 자연스럽게 연결되는 금융 인프라가 됩니다. 대출회사가 아닌 Supply Chain Infrastructure.</p></div>
+        <div><div className="slbl">VISION</div><h3 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:24,marginBottom:16,lineHeight:1.3}}>국내와 글로벌 중소기업이 가장 신뢰하는 성장 파트너</h3><p style={{fontSize:15,color:"var(--tm)",lineHeight:1.7}}>좋은 기회는 기다려 주지 않습니다. 중소기업이 성장의 순간을 자금 문제로 놓치지 않도록, 항상 곁에 있는 파트너가 됩니다.</p></div>
       </div>
     </Reveal></div></section>
     <section style={{padding:"96px 24px",background:"var(--alt)"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
@@ -95,23 +95,20 @@ function Ab({ setPage }: { setPage: (id: string) => void }) {
                 <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:20,height:20,background:"rgba(168,149,134,.1)",color:"var(--br)",fontSize:10,fontWeight:700,borderRadius:"50%"}}>{items.length}</span>
               </div>
               <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill, minmax(140px, 1fr))",gap:6}}>
-                {items.map(p => (
-                  <div key={p.id} style={{background:"var(--alt)",borderRadius:8,padding: (PARTNER_LOGOS as Record<string, string>)[p.nm] ? "8px 12px" : "11px 14px",textAlign:"center",fontSize:12,fontWeight:600,color:"var(--tm)",transition:"all .2s",cursor:"default",display:"flex",alignItems:"center",justifyContent:"center",minHeight:40}}
+                {items.map(p => {
+                  const keepSize = ["수이제네리스파트너스","두나미스자산운용","한국핀테크지원센터","서울창조경제센터","인천창조경제센터","서울다이나믹스"].includes(p.nm);
+                  const logoH = keepSize ? 22 : 18;
+                  return <div key={p.id} style={{background:"var(--alt)",borderRadius:8,padding: (PARTNER_LOGOS as Record<string, string>)[p.nm] ? "8px 12px" : "11px 14px",textAlign:"center",fontSize:12,fontWeight:600,color:"var(--tm)",transition:"all .2s",cursor:"default",display:"flex",alignItems:"center",justifyContent:"center",minHeight:40}}
                     onMouseEnter={e=>{e.currentTarget.style.background="rgba(168,149,134,.08)";e.currentTarget.style.color="var(--td)"}}
                     onMouseLeave={e=>{e.currentTarget.style.background="var(--alt)";e.currentTarget.style.color="var(--tm)"}}
-                  >{(PARTNER_LOGOS as Record<string, string>)[p.nm] ? <img src={(PARTNER_LOGOS as Record<string, string>)[p.nm]} alt={p.nm} title={p.nm} style={{maxWidth:"100%",maxHeight:28,objectFit:"contain",filter:"grayscale(30%)",opacity:.75,transition:"all .3s"}} onMouseEnter={e=>{e.currentTarget.style.filter="grayscale(0%)";e.currentTarget.style.opacity="1"}} onMouseLeave={e=>{e.currentTarget.style.filter="grayscale(30%)";e.currentTarget.style.opacity=".75"}}/> : p.nm}</div>
-                ))}
+                  >{(PARTNER_LOGOS as Record<string, string>)[p.nm] ? <img src={(PARTNER_LOGOS as Record<string, string>)[p.nm]} alt={p.nm} title={p.nm} style={{maxWidth:"100%",maxHeight:logoH,objectFit:"contain",filter:"grayscale(30%)",opacity:.75,transition:"all .3s"}} onMouseEnter={e=>{e.currentTarget.style.filter="grayscale(0%)";e.currentTarget.style.opacity="1"}} onMouseLeave={e=>{e.currentTarget.style.filter="grayscale(30%)";e.currentTarget.style.opacity=".75"}}/> : p.nm}</div>;
+                })}
               </div>
             </div>
           </Reveal>;
         });
       })()}
     </div></section>
-    <section style={{padding:"96px 24px",background:"linear-gradient(135deg,var(--ny),#132240)",textAlign:"center",color:"#fff"}}><Reveal><div style={{maxWidth:500,margin:"0 auto"}}>
-      <h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(26px,4vw,36px)",marginBottom:16}}>지금 바로 시작하세요.</h2>
-      <p style={{fontSize:16,color:"rgba(255,255,255,.55)",marginBottom:36}}>투자, 파트너십, 서비스 도입 문의를 환영합니다</p>
-      <button className="bp" onClick={()=>setPage("contact")} style={{padding:"16px 36px"}}>문의하기 →</button>
-    </div></Reveal></section>
   </>;
 }
 

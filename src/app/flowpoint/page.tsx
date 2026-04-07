@@ -20,8 +20,9 @@ function FPt({ setPage }: { setPage: (id: string) => void }) {
       <div style={{ position:"absolute", inset:0, background:"linear-gradient(90deg, rgba(15,25,41,.95) 0%, rgba(15,25,41,.7) 40%, rgba(15,25,41,.15) 75%, transparent 100%)", zIndex:1 }}/>
       <div style={{maxWidth:1200,margin:"0 auto",position:"relative",zIndex:2}}>
         <div style={{ maxWidth: 600 }}>
-          <div className="slbl" style={{color:"var(--bw)"}}>FLOWPOINT — DATA INPUT LAYER</div>
-          <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(32px,5vw,56px)",fontWeight:800,color:"#fff",lineHeight:1.1,letterSpacing:"-.03em",marginBottom:24}}>매출계약서에 <span style={{background:"linear-gradient(135deg,var(--bw),var(--bl))",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>'흐름'</span>을 만듭니다</h1>
+          <div className="slbl" style={{color:"var(--bw)"}}>DATA INPUT LAYER</div>
+          <div style={{fontFamily:"var(--fd)",fontWeight:900,fontSize:"clamp(64px,10vw,120px)",color:"#fff",letterSpacing:"-.04em",lineHeight:.95,margin:"8px 0 20px"}}>FlowPoint</div>
+          <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(20px,3vw,32px)",fontWeight:600,color:"rgba(255,255,255,.75)",lineHeight:1.3,letterSpacing:"-.02em",marginBottom:24}}>매출계약서에 <span style={{color:"var(--bw)"}}>'흐름'</span>을 만듭니다</h1>
           <p style={{fontSize:18,color:"rgba(255,255,255,.55)",maxWidth:520,lineHeight:1.7,marginBottom:40}}>종이 계약서를 디지털 자산으로 전환하여 양수도·유동화까지 연결합니다.</p>
           <a href="https://flowpoint.kr" target="_blank" rel="noopener noreferrer" className="bp" style={{padding:"14px 32px",fontSize:16,textDecoration:"none",display:"inline-block"}}>FlowPoint 시작하기 →</a>
         </div>
@@ -49,16 +50,9 @@ function FPt({ setPage }: { setPage: (id: string) => void }) {
           <Reveal key={i} delay={i*.08}><div className="fstep"><div className="fnum">{s.n}</div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:16}}>{s.t}</div></div></Reveal>)}
       </div>
     </div></section>
-    <section style={{padding:"96px 24px",background:"var(--nd)",color:"#fff",textAlign:"center"}}><Reveal><div style={{maxWidth:700,margin:"0 auto"}}>
-      <div className="slbl" style={{color:"var(--bw)"}}>MARKET OPPORTUNITY</div>
-      <h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(28px,4vw,40px)",marginBottom:48}}>금융이 닿지 못하는 곳, 그 규모.</h2>
-      <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:32}}>
-        {[{v:"5,000조",l:"연간 외상 매출채권"},{v:"249조",l:"유동화 수요"},{v:"99%",l:"Market Void"}].map((m,i)=><div key={i}><div style={{fontFamily:"var(--fd)",fontWeight:800,fontSize:"clamp(28px,4vw,44px)",color:"var(--bw)"}}>{m.v}</div><div style={{fontSize:14,color:"rgba(255,255,255,.45)",marginTop:8}}>{m.l}</div></div>)}
-      </div>
-    </div></Reveal></section>
-    <section style={{padding:"96px 24px",background:"#fff",textAlign:"center"}}><Reveal><div style={{maxWidth:500,margin:"0 auto"}}>
-      <h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(24px,4vw,32px)",marginBottom:16}}>종이 계약의 비효율, 지금 끝내세요.</h2>
-      <p style={{fontSize:16,color:"var(--tm)",marginBottom:36}}>FlowPoint로 매출채권을 디지털 자산으로 전환하세요</p>
+    <section style={{padding:"96px 24px",background:"linear-gradient(135deg,var(--ny),#132240)",color:"#fff",textAlign:"center"}}><Reveal><div style={{maxWidth:500,margin:"0 auto"}}>
+      <h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(24px,4vw,32px)",marginBottom:16,color:"#fff"}}>종이 계약의 비효율, 지금 끝내세요</h2>
+      <p style={{fontSize:16,color:"rgba(255,255,255,.55)",marginBottom:36}}>FlowPoint로 매출채권을 디지털 자산으로 전환하세요</p>
       <a href="https://flowpoint.kr" target="_blank" rel="noopener noreferrer" className="bp" style={{padding:"16px 36px",textDecoration:"none",display:"inline-block"}}>FlowPoint 시작하기 →</a>
     </div></Reveal></section>
   </>;

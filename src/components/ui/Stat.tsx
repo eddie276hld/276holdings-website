@@ -37,7 +37,7 @@ export function Stat({ value, suffix = "", label }: StatProps) {
 
   return (
     <div ref={ref} style={{ textAlign: "center", padding: "32px 20px" }}>
-      <div className="stat-num">
+      <div className="stat-num" style={{whiteSpace:"nowrap"}}>
         {count.toLocaleString()}{suffix}
       </div>
       <div style={{ fontSize: 14, color: "#64748b", marginTop: 8, fontWeight: 500 }}>

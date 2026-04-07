@@ -1,5 +1,5 @@
 // Partner logos (image paths in public/logos/)
-const BASE = "/276holdings-website/logos";
+const BASE = process.env.NODE_ENV === "production" ? "/276holdings-website/logos" : "/logos";
 
 export const PARTNER_LOGOS: Record<string, string> = {
   "인포뱅크": `${BASE}/인포뱅크.png`,

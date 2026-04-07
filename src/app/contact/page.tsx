@@ -22,7 +22,7 @@ function Ct() {
             <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>전화번호</label><input type="tel" placeholder="010-0000-0000"/></div>
             <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>문의 유형</label><select defaultValue=""><option value="" disabled>선택해 주세요</option><option>서비스 도입 문의</option><option>파트너십 제안</option><option>API 문의</option><option>투자 문의</option><option>기타</option></select></div>
             <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>문의 내용</label><textarea rows={5} placeholder="문의 내용을 입력해 주세요" style={{resize:"vertical"}}/></div>
-            <label style={{display:"flex",gap:8,alignItems:"flex-start",fontSize:13,color:"var(--tm)"}}><input type="checkbox" style={{marginTop:3}}/><span>개인정보 수집 및 이용에 동의합니다.</span></label>
+            <label style={{display:"flex",gap:8,alignItems:"center",fontSize:13,color:"var(--tm)"}}><input type="checkbox" style={{width:14,height:14,flexShrink:0,cursor:"pointer"}}/><span style={{flex:1,whiteSpace:"nowrap"}}>개인정보 수집 및 이용에 동의합니다.</span></label>
             <button className="bp" style={{width:"100%",justifyContent:"center",padding:14,fontSize:16}} onClick={()=>setDone(true)}>문의 보내기</button>
           </div>
         </div></Reveal>

@@ -12,7 +12,7 @@ function Foot({ setPage }: { setPage: (id: string) => void }) {
       </div>
       <div style={{ borderTop: "1px solid rgba(255,255,255,.06)", paddingTop: 24, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
         <span style={{ fontSize: 13, color: "rgba(255,255,255,.3)" }}>© 2026 276홀딩스. All rights reserved.</span>
-        <div style={{ display: "flex", gap: 16, alignItems: "center" }}>{["276holdings.com","flowpoint.kr","flowpay.kr"].map(s=><span key={s} style={{fontSize:13,color:"rgba(255,255,255,.3)"}}>{s}</span>)}<span onClick={()=>setPage("admin")} style={{fontSize:11,color:"rgba(255,255,255,.12)",cursor:"pointer",transition:"color .3s"}} onMouseEnter={e=>e.currentTarget.style.color="rgba(255,255,255,.4)"} onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,.12)"}>Admin</span></div>
+        <div style={{ display: "flex", gap: 16, alignItems: "center" }}>{[{l:"flowpoint.kr",h:"https://flowpay.kr"},{l:"flowpay.kr",h:"https://flowpoint.kr/flowpays"}].map(s=><a key={s.l} href={s.h} target="_blank" rel="noopener noreferrer" style={{fontSize:13,color:"rgba(255,255,255,.3)",textDecoration:"none",transition:"color .2s"}} onMouseEnter={e=>e.currentTarget.style.color="rgba(255,255,255,.6)"} onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,.3)"}>{s.l}</a>)}<span onClick={()=>setPage("admin")} style={{fontSize:11,color:"rgba(255,255,255,.12)",cursor:"pointer",transition:"color .3s"}} onMouseEnter={e=>e.currentTarget.style.color="rgba(255,255,255,.4)"} onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,.12)"}>Admin</span></div>
       </div>
     </div>
   </footer>;

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Bell, X } from "lucide-react";
-import { useNotices } from "@/hooks/useNotices";
+import { DEFAULT_NOTICES } from "@/data/notices";
 import { summarizeForPopup } from "@/lib/utils";
 
 function NoticePopup({ setPage }: { setPage: (id: string) => void }) {

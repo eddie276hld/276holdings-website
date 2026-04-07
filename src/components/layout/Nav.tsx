@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Logo276 } from "@/components/ui/Logo276";
 
 function Nav({ page, setPage }: { page?: string; setPage: (id: string) => void; current?: string }) {
@@ -7,8 +7,22 @@ function Nav({ page, setPage }: { page?: string; setPage: (id: string) => void; 
   const [menu, setMenu] = useState(false);
   const [dd, setDd] = useState(false);
   const isH = page === "home";
-  useEffect(() => { const f = () => setScr(window.scrollY > 40); window.addEventListener("scroll", f); return () => window.removeEventListener("scroll", f); }, []);
-  useEffect(() => { setMenu(false); window.scrollTo(0, 0); }, [page]);
+  const isHRef = useRef(isH);
+  isHRef.current = isH;
+  useEffect(() => {
+    const f = () => {
+      const threshold = isHRef.current ? window.innerHeight - 80 : 40;
+      setScr(window.scrollY > threshold);
+    };
+    f();
+    window.addEventListener("scroll", f);
+    return () => window.removeEventListener("scroll", f);
+  }, []);
+  useEffect(() => {
+    setMenu(false);
+    window.scrollTo(0, 0);
+    setScr(false);
+  }, [page]);
   const nCls = scr || !isH ? "nav-s" : "nav-t";
   const lc = scr || !isH ? "brand" : "white";
   const tc = scr || !isH ? "var(--td)" : "white";
@@ -29,7 +43,7 @@ function Nav({ page, setPage }: { page?: string; setPage: (id: string) => void; 
               </div>
             </div>}
           </div>
-          {[{id:"about",l:"회사 소개"},{id:"faq",l:"FAQ"},{id:"contact",l:"문의"}].map(i=><span key={i.id} onClick={()=>setPage(i.id)} style={{fontFamily:"var(--fd)",fontSize:15,fontWeight:500,color:tc,cursor:"pointer",transition:"opacity .2s"}} onMouseEnter={e=>e.currentTarget.style.opacity=".7"} onMouseLeave={e=>e.currentTarget.style.opacity="1"}>{i.l}</span>)}
+          {[{id:"about",l:"회사 소개"},{id:"faq",l:"FAQ"}].map(i=><span key={i.id} onClick={()=>setPage(i.id)} style={{fontFamily:"var(--fd)",fontSize:15,fontWeight:500,color:tc,cursor:"pointer",transition:"opacity .2s"}} onMouseEnter={e=>e.currentTarget.style.opacity=".7"} onMouseLeave={e=>e.currentTarget.style.opacity="1"}>{i.l}</span>)}
         </div>
         <button className="bn" onClick={()=>setPage("contact")}>상담 문의</button>
       </div>
