@@ -5,9 +5,58 @@ import { Mail, Phone, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 
 // === CONTACT PAGE ===
+const ERR = { border: "1.5px solid #ef4444" };
+const OK  = { border: "1px solid var(--bd)" };
+const ErrMsg = ({ msg }: { msg: string }) => (
+  <div style={{ fontSize: 12, color: "#ef4444", marginTop: 5, fontWeight: 500 }}>{msg}</div>
+);
+
 function Ct() {
   const [done, setDone] = useState(false);
+  const [vals, setVals] = useState({ company: "", name: "", email: "", tel: "", type: "", msg: "" });
+  const [agreed, setAgreed] = useState(false);
+  const [errs, setErrs] = useState<Record<string, string>>({});
+
+  const refs = {
+    company: useRef<HTMLInputElement>(null),
+    name:    useRef<HTMLInputElement>(null),
+    email:   useRef<HTMLInputElement>(null),
+    msg:     useRef<HTMLTextAreaElement>(null),
+    agree:   useRef<HTMLInputElement>(null),
+  };
+
+  const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setVals(v => ({ ...v, [k]: e.target.value }));
+    setErrs(ev => { const n = { ...ev }; delete n[k]; return n; });
+  };
+
+  const validate = () => {
+    const e: Record<string, string> = {};
+    if (!vals.company.trim())  e.company = "회사명을 입력해 주세요.";
+    if (!vals.name.trim())     e.name    = "담당자명을 입력해 주세요.";
+    if (!vals.email.trim())    e.email   = "이메일을 입력해 주세요.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vals.email)) e.email = "올바른 이메일 형식을 입력해 주세요.";
+    if (!vals.msg.trim())      e.msg     = "문의 내용을 입력해 주세요.";
+    if (!agreed)               e.agree   = "개인정보 수집 및 이용에 동의해 주세요.";
+    setErrs(e);
+
+    // focus first error
+    const order = ["company", "name", "email", "msg", "agree"] as const;
+    for (const k of order) {
+      if (e[k]) {
+        (refs[k] as React.RefObject<HTMLInputElement | HTMLTextAreaElement>).current?.focus();
+        break;
+      }
+    }
+    return Object.keys(e).length === 0;
+  };
+
+  const submit = () => { if (validate()) setDone(true); };
+
   if (done) return <section style={{padding:"180px 24px 120px",textAlign:"center",minHeight:"80vh",display:"flex",alignItems:"center",justifyContent:"center"}}><div><div style={{marginBottom:24,display:"flex",justifyContent:"center"}}><CheckCircle2 size={64} strokeWidth={1.2} color="var(--br)"/></div><h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:32,marginBottom:16}}>감사합니다</h2><p style={{fontSize:16,color:"var(--tm)"}}>문의가 접수되었습니다. 빠른 시일 내 연락드리겠습니다.</p></div></section>;
+
+  const fs = (k: string) => errs[k] ? ERR : OK; // field style helper
+
   return <section style={{padding:"140px 24px 96px",background:"var(--alt)"}}>
     <div style={{maxWidth:1100,margin:"0 auto"}}>
       <Reveal><div style={{marginBottom:48}}><div className="slbl">CONTACT US</div><h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(32px,5vw,48px)",fontWeight:800,letterSpacing:"-.03em",marginBottom:12}}>문의하기</h1><p style={{fontSize:17,color:"var(--tm)"}}>서비스 도입, 파트너십, API 문의 등 무엇이든 편하게 문의하세요.</p></div></Reveal>
@@ -15,15 +64,37 @@ function Ct() {
         <Reveal><div className="cform" style={{background:"#fff",padding:40,borderRadius:12,border:"1px solid var(--bd)"}}>
           <div style={{display:"flex",flexDirection:"column",gap:20}}>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
-              <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>회사명 *</label><input type="text" placeholder="회사명"/></div>
-              <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>담당자명 *</label><input type="text" placeholder="이름"/></div>
+              <div>
+                <label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>회사명 *</label>
+                <input ref={refs.company} type="text" placeholder="회사명" value={vals.company} onChange={set("company")} style={fs("company")}/>
+                {errs.company && <ErrMsg msg={errs.company}/>}
+              </div>
+              <div>
+                <label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>담당자명 *</label>
+                <input ref={refs.name} type="text" placeholder="이름" value={vals.name} onChange={set("name")} style={fs("name")}/>
+                {errs.name && <ErrMsg msg={errs.name}/>}
+              </div>
             </div>
-            <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>이메일 *</label><input type="email" placeholder="email@company.com"/></div>
-            <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>전화번호</label><input type="tel" placeholder="010-0000-0000"/></div>
-            <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>문의 유형</label><select defaultValue=""><option value="" disabled>선택해 주세요</option><option>서비스 도입 문의</option><option>파트너십 제안</option><option>API 문의</option><option>투자 문의</option><option>기타</option></select></div>
-            <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>문의 내용</label><textarea rows={5} placeholder="문의 내용을 입력해 주세요" style={{resize:"vertical"}}/></div>
-            <label style={{display:"flex",gap:8,alignItems:"center",fontSize:13,color:"var(--tm)"}}><input type="checkbox" style={{width:14,height:14,flexShrink:0,cursor:"pointer"}}/><span style={{flex:1,whiteSpace:"nowrap"}}>개인정보 수집 및 이용에 동의합니다.</span></label>
-            <button className="bp" style={{width:"100%",justifyContent:"center",padding:14,fontSize:16}} onClick={()=>setDone(true)}>문의 보내기</button>
+            <div>
+              <label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>이메일 *</label>
+              <input ref={refs.email} type="email" placeholder="email@company.com" value={vals.email} onChange={set("email")} style={fs("email")}/>
+              {errs.email && <ErrMsg msg={errs.email}/>}
+            </div>
+            <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>전화번호</label><input type="tel" placeholder="010-0000-0000" value={vals.tel} onChange={set("tel")}/></div>
+            <div><label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>문의 유형</label><select value={vals.type} onChange={set("type")}><option value="" disabled>선택해 주세요</option><option>서비스 도입 문의</option><option>파트너십 제안</option><option>API 문의</option><option>투자 문의</option><option>기타</option></select></div>
+            <div>
+              <label style={{fontSize:14,fontWeight:500,display:"block",marginBottom:6}}>문의 내용 *</label>
+              <textarea ref={refs.msg} rows={5} placeholder="문의 내용을 입력해 주세요" style={{resize:"vertical",...fs("msg")}} value={vals.msg} onChange={set("msg")}/>
+              {errs.msg && <ErrMsg msg={errs.msg}/>}
+            </div>
+            <div>
+              <label style={{display:"flex",gap:8,alignItems:"center",fontSize:13,color: errs.agree ? "#ef4444" : "var(--tm)",cursor:"pointer"}}>
+                <input ref={refs.agree} type="checkbox" checked={agreed} onChange={e=>{setAgreed(e.target.checked);if(e.target.checked)setErrs(ev=>{const n={...ev};delete n.agree;return n;});}} style={{width:14,height:14,flexShrink:0,cursor:"pointer",accentColor: errs.agree ? "#ef4444" : "var(--br)"}}/>
+                <span style={{flex:1}}>개인정보 수집 및 이용에 동의합니다.</span>
+              </label>
+              {errs.agree && <ErrMsg msg={errs.agree}/>}
+            </div>
+            <button className="bp" style={{width:"100%",justifyContent:"center",padding:14,fontSize:16}} onClick={submit}>문의 보내기</button>
           </div>
         </div></Reveal>
         <Reveal delay={.15}><div style={{display:"flex",flexDirection:"column",gap:32}}>

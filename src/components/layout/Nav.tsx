@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Logo276 } from "@/components/ui/Logo276";
 
 function Nav({ page, setPage }: { page?: string; setPage: (id: string) => void; current?: string }) {
-  const [scr, setScr] = useState(false);
+  const [sp, setSp] = useState(0); // scrollProgress 0~1
   const [menu, setMenu] = useState(false);
   const [dd, setDd] = useState(false);
   const isH = page === "home";
@@ -11,23 +11,42 @@ function Nav({ page, setPage }: { page?: string; setPage: (id: string) => void; 
   isHRef.current = isH;
   useEffect(() => {
     const f = () => {
-      const threshold = isHRef.current ? window.innerHeight - 80 : 40;
-      setScr(window.scrollY > threshold);
+      if (!isHRef.current) { setSp(1); return; }
+      const max = window.innerHeight * 0.75;
+      setSp(Math.min(1, Math.max(0, window.scrollY / max)));
     };
     f();
-    window.addEventListener("scroll", f);
+    window.addEventListener("scroll", f, { passive: true });
     return () => window.removeEventListener("scroll", f);
   }, []);
   useEffect(() => {
     setMenu(false);
     window.scrollTo(0, 0);
-    setScr(false);
+    setSp(isH ? 0 : 1);
   }, [page]);
-  const nCls = scr || !isH ? "nav-s" : "nav-t";
-  const lc = scr || !isH ? "brand" : "white";
-  const tc = scr || !isH ? "var(--td)" : "white";
+  const scr = !isH || sp >= 1;
+  const lc = sp > 0.5 || !isH ? "brand" : "white";
+  const tc = sp > 0.5 || !isH ? "var(--td)" : "#fff";
+  const bgA = isH ? sp * 0.93 : 0.93;
+  const blurPx = Math.round((isH ? sp : 1) * 16);
+  const bdA = isH ? sp * 0.08 : 0.08;
+  const navStyle = {
+    position: "fixed" as const,
+    top: 0, left: 0, right: 0,
+    zIndex: 50,
+    padding: "0 24px",
+    height: 68,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    background: `rgba(255,255,255,${bgA.toFixed(3)})`,
+    backdropFilter: blurPx > 0 ? `blur(${blurPx}px)` : "none",
+    WebkitBackdropFilter: blurPx > 0 ? `blur(${blurPx}px)` : "none",
+    borderBottom: `1px solid rgba(0,0,0,${bdA.toFixed(3)})`,
+    transition: "color 0.2s ease",
+  };
   return <>
-    <nav className={nCls} style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, padding: "0 24px", height: 68, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+    <nav style={navStyle}>
       <div style={{ cursor: "pointer" }} onClick={() => setPage("home")}><Logo276 color={lc} width={150} height={38}/></div>
       <div style={{ display: "flex", alignItems: "center", gap: 32 }} className="dnav">
         <div style={{ display: "flex", alignItems: "center", gap: 28 }}>

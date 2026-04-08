@@ -31,7 +31,7 @@ export default function ClientLayout({
 
   return (
     <>
-      <Nav setPage={navigateTo} current={currentPage} />
+      <Nav setPage={navigateTo} page={currentPage} />
       <main>{children}</main>
       <Foot setPage={navigateTo} />
       {pathname === "/" && <NoticePopup />}
