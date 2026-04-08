@@ -19,7 +19,7 @@ function Faq({ setPage }: { setPage: (id: string) => void }) {
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
         <Reveal>
           <div className="slbl">FAQ · KNOWLEDGE BASE</div>
-          <h1 style={{ fontFamily: "var(--fd)", fontSize: "clamp(32px,5vw,48px)", fontWeight: 800, letterSpacing: "-.03em", marginBottom: 12 }}>자주 묻는 질문.</h1>
+          <h1 style={{ fontFamily: "var(--fd)", fontSize: "clamp(32px,5vw,48px)", fontWeight: 800, letterSpacing: "-.03em", marginBottom: 12 }}>자주 묻는 질문</h1>
           <p style={{ fontSize: 17, color: "var(--tm)", marginBottom: 36 }}>276홀딩스의 서비스, 기술, 사업에 대해 궁금한 점을 확인하세요.</p>
         </Reveal>
 

@@ -24,16 +24,16 @@ function FP({ setPage }: { setPage: (id: string) => void }) {
       <div style={{ maxWidth:1200,margin:"0 auto",position:"relative",zIndex:2 }}>
         <div style={{ maxWidth: 600 }}>
           <div className="slbl" style={{color:"var(--bw)"}}>SUPPLY NOW, PAY LATER</div>
-          <div style={{fontFamily:"var(--fd)",fontWeight:900,fontSize:"clamp(64px,10vw,120px)",color:"#fff",letterSpacing:"-.04em",lineHeight:.95,margin:"8px 0 20px"}}>FlowPay</div>
+          <div style={{fontFamily:"var(--fd)",fontWeight:900,fontSize:"clamp(45px,7vw,84px)",color:"#fff",letterSpacing:"-.04em",lineHeight:.95,margin:"8px 0 20px"}}>FLOW PAY</div>
           <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(20px,3vw,32px)",fontWeight:600,color:"rgba(255,255,255,.75)",lineHeight:1.3,letterSpacing:"-.02em",marginBottom:24}}>원자재는 지금 조달,<br/><span style={{color:"var(--bw)"}}>대금은 나중에</span></h1>
           <p style={{fontSize:18,color:"rgba(255,255,255,.55)",maxWidth:520,lineHeight:1.7,marginBottom:40}}>유통 기반 구매대행 — 대출이 아닌 상거래 방식으로 부채 부담 없이 매출을 확장하세요.</p>
-          <a href="https://flowpay.kr" target="_blank" rel="noopener noreferrer" className="bp" style={{padding:"14px 32px",fontSize:16,textDecoration:"none",display:"inline-block"}}>FlowPay 신청하기 →</a>
+          <a href="https://flowpay.kr" target="_blank" rel="noopener noreferrer" className="bp" style={{padding:"14px 32px",fontSize:16,textDecoration:"none",display:"inline-block"}}>FLOW PAY 신청하기 →</a>
         </div>
       </div>
       <div style={{ position:"absolute",bottom:0,left:0,right:0,height:1,background:"rgba(255,255,255,0.08)",zIndex:2 }}/>
     </section>
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
-      <Reveal><SH label="WHY FLOWPAY" title="대출이 아닌 구매대행, 이것이 다릅니다." subtitle="부채 없이 원자재를 조달하고, 매출 기회를 놓치지 않는 구조입니다."/></Reveal>
+      <Reveal><SH label="WHY FLOW PAY" title="대출이 아닌 구매대행, 이것이 다릅니다." subtitle="부채 없이 원자재를 조달하고, 매출 기회를 놓치지 않는 구조입니다."/></Reveal>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(260px,1fr))",gap:24}}>
         {[{Ic:Zap,t:"원자재 즉시 선공급",d:"생산과 납품을 먼저 진행하여 매출 기회를 확보합니다"},{Ic:ArrowLeftRight,t:"유통 기반 구매대행",d:"매입/매출 계산서 발행 구조. 부채비율에 영향 없이 재무 건전성을 유지합니다"},{Ic:ShieldCheck,t:"이중 안전장치",d:"FlowScore AI 심사 + 보증보험 연계로 구조적 리스크를 통제합니다"},{Ic:TrendingUp,t:"성장 친화적 구조",d:"자금이 부족해도 수주를 포기할 필요 없이 매출을 확장합니다"}].map((it,i)=>
           <Reveal key={i} delay={i*.1}><div className="card" style={{height:"100%"}}><div style={{marginBottom:16}}><LI icon={it.Ic}/></div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:18,marginBottom:8}}>{it.t}</h3><p style={{fontSize:15,color:"var(--tm)",lineHeight:1.7}}>{it.d}</p></div></Reveal>)}
@@ -47,7 +47,7 @@ function FP({ setPage }: { setPage: (id: string) => void }) {
       </div>
     </div></section>
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
-      <Reveal><SH label="TRACK RECORD" title="숫자가 말하는 FlowPay." subtitle="실제 거래 데이터를 기반으로 한 서비스 성과입니다"/></Reveal>
+      <Reveal><SH label="TRACK RECORD" title="숫자가 말하는 FLOW PAY." subtitle="실제 거래 데이터를 기반으로 한 서비스 성과입니다"/></Reveal>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:24}}>
         <Reveal><Stat value={195} suffix="억원" label="총 공급대금"/></Reveal><Reveal delay={.1}><Stat value={44} suffix="일" label="평균 결제 주기"/></Reveal><Reveal delay={.2}><Stat value={4} suffix=".5%" label="평균 거래 수수료"/></Reveal><Reveal delay={.3}><Stat value={65} suffix="%+" label="재구매 고객 비중"/></Reveal><Reveal delay={.4}><Stat value={157} suffix="%" label="매출 성장 효과"/></Reveal>
       </div>
@@ -67,8 +67,8 @@ function FP({ setPage }: { setPage: (id: string) => void }) {
 
     <section style={{padding:"96px 24px",background:"linear-gradient(135deg,var(--ny),#132240)",textAlign:"center",color:"#fff"}}><Reveal><div style={{maxWidth:500,margin:"0 auto"}}>
       <h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(26px,4vw,36px)",marginBottom:16}}>자금 흐름, 지금 바꿔보세요.</h2>
-      <p style={{fontSize:16,color:"rgba(255,255,255,.55)",marginBottom:36}}>FlowPay가 귀사의 공급망 자금 문제를 어떻게 해결하는지 확인하세요</p>
-      <a href="https://flowpay.kr" target="_blank" rel="noopener noreferrer" className="bp" style={{padding:"16px 36px",fontSize:16,textDecoration:"none",display:"inline-block"}}>FlowPay 신청하기 →</a>
+      <p style={{fontSize:16,color:"rgba(255,255,255,.55)",marginBottom:36}}>FLOW PAY가 귀사의 공급망 자금 문제를 어떻게 해결하는지 확인하세요</p>
+      <a href="https://flowpay.kr" target="_blank" rel="noopener noreferrer" className="bp" style={{padding:"16px 36px",fontSize:16,textDecoration:"none",display:"inline-block"}}>FLOW PAY 신청하기 →</a>
     </div></Reveal></section>
   </>;
 }

@@ -21,7 +21,7 @@ function FS({ setPage }: { setPage: (id: string) => void }) {
       <div style={{maxWidth:1200,margin:"0 auto",position:"relative",zIndex:2}}>
         <div style={{ maxWidth: 600 }}>
           <div className="slbl" style={{color:"var(--bw)"}}>AI CREDIT INTELLIGENCE</div>
-          <div style={{fontFamily:"var(--fd)",fontWeight:900,fontSize:"clamp(64px,10vw,120px)",color:"#fff",letterSpacing:"-.04em",lineHeight:.95,margin:"8px 0 20px"}}>FlowScore</div>
+          <div style={{fontFamily:"var(--fd)",fontWeight:900,fontSize:"clamp(45px,7vw,84px)",color:"#fff",letterSpacing:"-.04em",lineHeight:.95,margin:"8px 0 20px"}}>FLOW SCORE</div>
           <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(20px,3vw,32px)",fontWeight:600,color:"rgba(255,255,255,.75)",lineHeight:1.3,letterSpacing:"-.02em",marginBottom:24}}>지금 이 거래, <span style={{color:"var(--bw)"}}>안전한가?</span></h1>
           <p style={{fontSize:18,color:"rgba(255,255,255,.55)",maxWidth:520,lineHeight:1.7,marginBottom:40}}>'지금 이 순간의 거래 안정성'을 평가하는 단기 매출채권 부실 평가 정보 서비스</p>
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}><button className="bp" onClick={()=>setPage("contact")}>도입 문의 →</button></div>
@@ -31,7 +31,7 @@ function FS({ setPage }: { setPage: (id: string) => void }) {
     </section>
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:900,margin:"0 auto"}}>
       <Reveal><SH label="DIFFERENTIATION" title="기존 평가와 무엇이 다른가요?"/></Reveal>
-      <Reveal delay={.1}><div style={{overflowX:"auto",borderRadius:12,border:"1px solid var(--bd)"}}><table className="ctbl"><thead><tr><th style={{width:"20%"}}>구분</th><th style={{width:"40%"}}>기존 신용평가</th><th style={{width:"40%"}}>FlowScore</th></tr></thead><tbody>
+      <Reveal delay={.1}><div style={{overflowX:"auto",borderRadius:12,border:"1px solid var(--bd)"}}><table className="ctbl"><thead><tr><th style={{width:"20%"}}>구분</th><th style={{width:"40%"}}>기존 신용평가</th><th style={{width:"40%"}}>FLOW SCORE</th></tr></thead><tbody>
         {[["데이터","재무제표 중심, 과거 지표","실시간 거래 흐름 중심"],["평가 대상","기업 전체의 장기 안정성","단기 매출채권 단위의 안정성"],["갱신 주기","연 1회 갱신","거래 발생 단위로 누적·업데이트"],["핵심 질문","\"괜찮은 회사인가?\"","\"지금 이 거래, 안전한가?\""]].map(([c,o,n],i)=><tr key={i}><td style={{fontWeight:600}}>{c}</td><td style={{color:"var(--tm)"}}>{o}</td><td>{n}</td></tr>)}
       </tbody></table></div></Reveal>
     </div></section>
@@ -46,10 +46,10 @@ function FS({ setPage }: { setPage: (id: string) => void }) {
       </div></Reveal>
     </div></section>
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:1000,margin:"0 auto"}}>
-      <Reveal><SH label="CASE STUDIES" title="FlowScore가 실제로 작동한 순간"/></Reveal>
+      <Reveal><SH label="CASE STUDIES" title="FLOW SCORE가 실제로 작동한 순간"/></Reveal>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))",gap:24}}>
-        <Reveal><div className="card" style={{borderLeft:"none",overflow:"hidden",position:"relative",paddingTop:44}}><div style={{position:"absolute",top:0,left:0,right:0,height:4,borderRadius:"12px 12px 0 0",background:"linear-gradient(90deg, #f87171, #ef4444, #dc2626, #b91c1c)"}}/><div style={{fontFamily:"var(--fm)",fontSize:12,color:"#ef4444",marginBottom:12}}>CASE 1 — 손실 방어</div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:18,marginBottom:16}}>"가짜 우량" 포착</h3><div style={{fontSize:14,color:"var(--tm)",lineHeight:1.8}}><p><strong>기존 평가:</strong> 재무 양호 → 우량 판정</p><p><strong>FlowScore:</strong> 비재무 행동 이상 징후 포착</p><p style={{color:"#ef4444",fontWeight:600,marginTop:8}}>결과: 취급 거절 3개월 후 회생 절차 돌입</p></div></div></Reveal>
-        <Reveal delay={.15}><div className="card" style={{borderLeft:"none",overflow:"hidden",position:"relative",paddingTop:44}}><div style={{position:"absolute",top:0,left:0,right:0,height:4,borderRadius:"12px 12px 0 0",background:"linear-gradient(90deg, #4ade80, #22c55e, #16a34a, #15803d)"}}/><div style={{fontFamily:"var(--fm)",fontSize:12,color:"var(--gn)",marginBottom:12}}>CASE 2 — 수익 기회 발굴</div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:18,marginBottom:16}}>고회전 소기업 발굴</h3><div style={{fontSize:14,color:"var(--tm)",lineHeight:1.8}}><p><strong>기존 평가:</strong> 업력 2년 미만, 금융 거절</p><p><strong>FlowScore:</strong> 상환 성실도 100%, 연체 0%</p><p style={{color:"var(--gn)",fontWeight:600,marginTop:8}}>결과: 누적 거래 200+, 마진율 5%</p></div></div></Reveal>
+        <Reveal><div className="card" style={{borderLeft:"none",overflow:"hidden",position:"relative",paddingTop:44}}><div style={{position:"absolute",top:0,left:0,right:0,height:4,borderRadius:"12px 12px 0 0",background:"linear-gradient(90deg, #f87171, #ef4444, #dc2626, #b91c1c)"}}/><div style={{fontFamily:"var(--fm)",fontSize:12,color:"#ef4444",marginBottom:12}}>CASE 1 — 손실 방어</div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:18,marginBottom:16}}>"가짜 우량" 포착</h3><div style={{fontSize:14,color:"var(--tm)",lineHeight:1.8}}><p><strong>기존 평가:</strong> 재무 양호 → 우량 판정</p><p><strong>FLOW SCORE:</strong> 비재무 행동 이상 징후 포착</p><p style={{color:"#ef4444",fontWeight:600,marginTop:8}}>결과: 취급 거절 3개월 후 회생 절차 돌입</p></div></div></Reveal>
+        <Reveal delay={.15}><div className="card" style={{borderLeft:"none",overflow:"hidden",position:"relative",paddingTop:44}}><div style={{position:"absolute",top:0,left:0,right:0,height:4,borderRadius:"12px 12px 0 0",background:"linear-gradient(90deg, #4ade80, #22c55e, #16a34a, #15803d)"}}/><div style={{fontFamily:"var(--fm)",fontSize:12,color:"var(--gn)",marginBottom:12}}>CASE 2 — 수익 기회 발굴</div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:18,marginBottom:16}}>고회전 소기업 발굴</h3><div style={{fontSize:14,color:"var(--tm)",lineHeight:1.8}}><p><strong>기존 평가:</strong> 업력 2년 미만, 금융 거절</p><p><strong>FLOW SCORE:</strong> 상환 성실도 100%, 연체 0%</p><p style={{color:"var(--gn)",fontWeight:600,marginTop:8}}>결과: 누적 거래 200+, 마진율 5%</p></div></div></Reveal>
       </div>
     </div></section>
     <section style={{padding:"96px 24px",background:"var(--alt)"}}><div style={{maxWidth:600,margin:"0 auto",textAlign:"center"}}><Reveal>

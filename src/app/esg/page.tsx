@@ -31,8 +31,8 @@ function Esg() {
   ];
 
   const highlights = [
-    { icon: "💰", title: "중소기업 자금난 해소", desc: "FlowPoint 매출채권 유동화로 자금조달 시간 단축" },
-    { icon: "🏪", title: "소상공인 경쟁력 강화", desc: "FlowPay '나중결제' 옵션으로 선자금 부담 해소" },
+    { icon: "💰", title: "중소기업 자금난 해소", desc: "FLOW POINT 매출채권 유동화로 자금조달 시간 단축" },
+    { icon: "🏪", title: "소상공인 경쟁력 강화", desc: "FLOW PAY '나중결제' 옵션으로 선자금 부담 해소" },
     { icon: "🌍", title: "지역 경제 활성화", desc: "비수도권 지원 비율 40.9%, 지역 중소기업 자금 지원" },
     { icon: "🤝", title: "포용적 금융 제공", desc: "매출채권 기반 대체 데이터 평가로 금융 접근성 확대" },
     { icon: "🌱", title: "ESG 금융 실현", desc: "ESG 기준 반영 지속가능한 경제 생태계 조성" },

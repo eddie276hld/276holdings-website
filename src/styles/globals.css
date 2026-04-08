@@ -62,5 +62,17 @@
 .mmenu{position:fixed;inset:0;background:#fff;z-index:100;padding:80px 24px 24px;display:flex;flex-direction:column;gap:4px;animation:fadeUp .3s ease}
 .mmenu a{padding:16px;font-family:var(--fd);font-size:18px;font-weight:600;color:var(--td);text-decoration:none;border-radius:12px;transition:background .2s}
 .mmenu a:hover{background:var(--alt)}
+/* Hero responsive */
+.hero-section{min-height:100vh;padding:120px 24px 80px}
+/* Service flow arrows */
+.flow-row{display:flex;align-items:center;justify-content:center}
+.flow-arr-r{display:flex;align-items:center;padding:0 8px}
+.flow-arr-d{display:none;justify-content:center;padding:4px 0}
 @media(max-width:768px){.stat-num{font-size:36px}.bcard,.card{padding:24px}.dnav{display:none!important}.mbtn{display:block!important}}
+@media(max-width:640px){
+  .hero-section{min-height:unset;padding:96px 24px 56px}
+  .flow-row{flex-direction:column;gap:4px}
+  .flow-arr-r{display:none}
+  .flow-arr-d{display:flex}
+}
 

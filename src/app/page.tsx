@@ -11,12 +11,13 @@ import LogoMarquee from "@/components/home/LogoMarquee";
 import HeroVisual from "@/components/home/HeroCanvas";
 import NoticePopup from "@/components/home/NoticePopup";
 import { usePress } from "@/hooks/usePress";
+import { useAwards } from "@/hooks/useAwards";
 
 // === HOME PAGE ===
 function Home({ setPage }: { setPage: (id: string) => void }) {
   return <>
     <NoticePopup setPage={setPage}/>
-    <section className="hero-bg" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "120px 24px 80px", position: "relative" }}>
+    <section className="hero-bg hero-section" style={{ display: "flex", flexDirection: "column", justifyContent: "center", position: "relative" }}>
       <HeroVisual/>
       <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", position: "relative", zIndex: 2 }}>
         <div style={{ display: "flex", gap: 12, marginBottom: 32, flexWrap: "wrap", animation: "fadeUp .8s ease" }}>
@@ -54,7 +55,7 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <Reveal><SH label="FLOW ECOSYSTEM" title="자금 흐름의 모든 단계를 커버합니다." subtitle="데이터 축적부터 신용평가, 자금 집행까지 — 하나의 흐름으로 연결되는 금융 솔루션" light/></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24 }}>
-          {[{id:"flowpoint",s:"01",Ic:FileText,nm:"FlowPoint",rl:"Data Input",ds:"매출채권 전자화 및 정산 데이터 축적. 종이 계약서를 디지털 자산으로 전환하여 공급망 가시성 확보",cl:"var(--br)"},{id:"flowscore",s:"02",Ic:Brain,nm:"FlowScore",rl:"Processing",ds:"491개 변수, 5-Dimension AI 분석으로 거래 단위의 리스크를 실시간 평가. '지금 이 거래, 안전한가?'",cl:"var(--bw)"},{id:"flowpay",s:"03",Ic:Wallet,nm:"FlowPay",rl:"Profit Out",ds:"구매대행 기반 선지급 솔루션. 원자재는 지금 조달하고, 대금은 나중에 정산. 부채 없는 공급망 금융",cl:"#e8c99a"}].map((it,i)=>
+          {[{id:"flowpoint",s:"01",Ic:FileText,nm:"FLOW POINT",rl:"Data Input",ds:"매출채권 전자화 및 정산 데이터 축적. 종이 계약서를 디지털 자산으로 전환하여 공급망 가시성 확보",cl:"var(--br)"},{id:"flowscore",s:"02",Ic:Brain,nm:"FLOW SCORE",rl:"Processing",ds:"491개 변수, 5-Dimension AI 분석으로 거래 단위의 리스크를 실시간 평가. '지금 이 거래, 안전한가?'",cl:"var(--bw)"},{id:"flowpay",s:"03",Ic:Wallet,nm:"FLOW PAY",rl:"Profit Out",ds:"구매대행 기반 선지급 솔루션. 원자재는 지금 조달하고, 대금은 나중에 정산. 부채 없는 공급망 금융",cl:"#e8c99a"}].map((it,i)=>
             <Reveal key={it.id} delay={i*.15}>
               <div style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.08)",borderRadius:12,padding:36,cursor:"pointer",height:"100%",transition:"all .3s",position:"relative",overflow:"hidden"}}
                 onClick={()=>setPage(it.id)}
@@ -74,20 +75,21 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
         <Reveal delay={.3}>
           <div style={{margin:"56px 0 0",padding:"40px 48px",background:"rgba(255,255,255,.04)",borderRadius:16,border:"1px solid rgba(255,255,255,.1)"}}>
             <div style={{fontSize:12,fontFamily:"var(--fd)",color:"rgba(255,255,255,.35)",textAlign:"center",letterSpacing:".1em",marginBottom:28}}>서비스 흐름</div>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:0,flexWrap:"wrap"}}>
+            <div className="flow-row">
               {[
-                {nm:"FlowPoint",rl:"Data Input",cl:"var(--br)",desc:"매출채권 전자화"},
-                {nm:"FlowScore",rl:"Processing",cl:"var(--bw)",desc:"AI 리스크 평가"},
-                {nm:"FlowPay",rl:"Profit Out",cl:"#c4b0a0",desc:"구매대행 선지급"},
+                {nm:"FLOW POINT",rl:"Data Input",cl:"var(--br)",desc:"매출채권 전자화"},
+                {nm:"FLOW SCORE",rl:"Processing",cl:"var(--bw)",desc:"AI 리스크 평가"},
+                {nm:"FLOW PAY",rl:"Profit Out",cl:"#c4b0a0",desc:"구매대행 선지급"},
               ].map((s,i)=><Fragment key={s.nm}>
                 <div style={{textAlign:"center",padding:"0 32px"}}>
                   <div style={{fontSize:11,fontFamily:"var(--fm)",color:s.cl,letterSpacing:".08em",marginBottom:6}}>{s.rl}</div>
                   <div style={{fontFamily:"var(--fd)",fontWeight:800,fontSize:28,color:"#fff",letterSpacing:"-.02em"}}>{s.nm}</div>
                   <div style={{fontSize:13,color:"rgba(255,255,255,.4)",marginTop:6}}>{s.desc}</div>
                 </div>
-                {i < 2 && <div style={{display:"flex",alignItems:"center",padding:"0 8px"}}>
-                  <div style={{fontSize:22,color:"rgba(255,255,255,.35)"}}>▶</div>
-                </div>}
+                {i < 2 && <>
+                  <div className="flow-arr-r"><div style={{fontSize:22,color:"rgba(255,255,255,.35)"}}>▶</div></div>
+                  <div className="flow-arr-d"><div style={{fontSize:20,color:"rgba(255,255,255,.35)"}}>▼</div></div>
+                </>}
               </Fragment>)}
             </div>
             <div style={{textAlign:"center",marginTop:28,paddingTop:24,borderTop:"1px solid rgba(255,255,255,.08)",fontSize:13,color:"rgba(255,255,255,.35)",lineHeight:1.7}}>
@@ -173,16 +175,20 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
     </div></section>
 
     {/* Awards */}
-    <section style={{ padding: "96px 24px", background: "#fff" }}><div style={{ maxWidth: 1200, margin: "0 auto" }}>
-      <Reveal><SH label="AWARDS & RECOGNITION" title="공신력 있는 기관이 인정한 성과" subtitle="정부 기관과 글로벌 심사위원단이 검증한 기술력과 사업 실적"/></Reveal>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
-        {[{y:"2024",t:"과기정통부 장관상",o:"K-Global 창업멘토링 우수멘티"},{y:"2025",t:"중소벤처기업부 장관상",o:"벤처창업진흥 유공 표창"},{y:"2025",t:"Most Innovative Wealth Mgmt",o:"GFM Review, UK"},{y:"2026",t:"중기부 장관상 (2년 연속)",o:"글로벌창업사관학교 최우수"},{y:"2026",t:"혁신IT 대상",o:"중앙일보"},{y:"2026",t:"서민금융대상",o:"서민금융진흥원장상"}].map((a,i)=>
-          <Reveal key={i} delay={i*.08}><div style={{padding:24,border:"1px solid var(--bd)",borderRadius:12,display:"flex",gap:16,alignItems:"flex-start"}}>
-            <div style={{background:"linear-gradient(135deg,var(--bw),var(--br))",color:"#fff",padding:"4px 10px",borderRadius:6,fontFamily:"var(--fm)",fontSize:12,fontWeight:600,flexShrink:0}}>{a.y}</div>
-            <div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:15,marginBottom:4}}>{a.t}</div><div style={{fontSize:13,color:"var(--tm)"}}>{a.o}</div></div>
-          </div></Reveal>)}
-      </div>
-    </div></section>
+    {(()=>{
+      const { awards } = useAwards();
+      if (awards.length === 0) return null;
+      return <section style={{ padding: "96px 24px", background: "#fff" }}><div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <Reveal><SH label="AWARDS & RECOGNITION" title="공신력 있는 기관이 인정한 성과" subtitle="정부 기관과 글로벌 심사위원단이 검증한 기술력과 사업 실적"/></Reveal>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
+          {[...awards].sort((a,b)=>b.y.localeCompare(a.y)).map((a,i)=>
+            <Reveal key={a.id} delay={i*.08}><div style={{padding:24,border:"1px solid var(--bd)",borderRadius:12,display:"flex",gap:16,alignItems:"flex-start"}}>
+              <div style={{background:"linear-gradient(135deg,var(--bw),var(--br))",color:"#fff",padding:"4px 10px",borderRadius:6,fontFamily:"var(--fm)",fontSize:12,fontWeight:600,flexShrink:0}}>{a.y}</div>
+              <div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:15,marginBottom:4}}>{a.t}</div><div style={{fontSize:13,color:"var(--tm)"}}>{a.o}</div></div>
+            </div></Reveal>)}
+        </div>
+      </div></section>;
+    })()}
 
     {/* PRESS COVERAGE */}
     {(() => {
@@ -206,7 +212,7 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
             </>}
             <div style={{ overflow: "hidden" }}>
               <div style={{ display: "flex", gap: 20, transition: "transform .4s cubic-bezier(.4,0,.2,1)", transform: `translateX(-${idx * (100 / 3 + 20 / 3 * 100 / 1100)}%)` }}>
-                {press.map((p, i) => (
+                {[...press].sort((a,b)=>b.date.localeCompare(a.date)).map((p, i) => (
                   <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer"
                     style={{ minWidth: "calc((100% - 40px) / 3)", flex: "0 0 calc((100% - 40px) / 3)", borderRadius: 12, border: "1px solid var(--bd)", overflow: "hidden", textDecoration: "none", color: "inherit", transition: "box-shadow .3s, transform .3s", cursor: "pointer" }}
                     onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,.08)"; e.currentTarget.style.transform = "translateY(-4px)"; }}

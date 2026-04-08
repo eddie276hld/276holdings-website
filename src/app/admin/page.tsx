@@ -10,6 +10,7 @@ import { useFaqs } from "@/hooks/useFaqs";
 import { useHistory } from "@/hooks/useHistory";
 import { useMembers } from "@/hooks/useMembers";
 import { usePartners } from "@/hooks/usePartners";
+import { useAwards } from "@/hooks/useAwards";
 import { PARTNER_CATEGORIES } from "@/data/partners";
 import { FAQ_CATEGORIES } from "@/data/faqs";
 import { HISTORY_CATEGORIES } from "@/data/history";
@@ -23,7 +24,8 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
   const { history: histItems, loaded: hLoaded, save: hSave } = useHistory();
   const { members: memberItems, loaded: mLoaded, save: mSave } = useMembers();
   const { partners: partnerItems, loaded: ptLoaded, save: ptSave } = usePartners();
-  const [tab, setTab] = useState("notices"); // notices | press | faq | history | members | partners
+  const { awards: awardItems, loaded: awLoaded, save: awSave } = useAwards();
+  const [tab, setTab] = useState("notices"); // notices | press | faq | history | members | partners | awards
   const [mode, setMode] = useState("list"); // list | add | edit
   const [editId, setEditId] = useState<any>(null);
   const [form, setForm] = useState({ category: "주주총회", date: "", title: "", content: "", isPopup: false, popupStart: "", popupEnd: "" });
@@ -64,6 +66,11 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
   const [ptDel, setPtDel] = useState<any>(null);
   const [ptCustomCat, setPtCustomCat] = useState("");
   const [ptShowCustom, setPtShowCustom] = useState(false);
+  // Awards states
+  const [awMode, setAwMode] = useState("list");
+  const [awEditId, setAwEditId] = useState<any>(null);
+  const [awForm, setAwForm] = useState({ y: "", t: "", o: "" });
+  const [awDel, setAwDel] = useState<any>(null);
 
   const CATEGORIES = ["주주총회", "정관변경", "경영현안", "공시", "기타"];
 
@@ -225,6 +232,24 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
     setPtMode("list"); setPtEditId(null);
   };
   const ptHandleDelete = async (id) => { await ptSave(partnerItems.filter(p => p.id !== id)); setPtDel(null); };
+
+  // === AWARDS handlers ===
+  const awStartAdd = () => { setAwForm({ y: new Date().getFullYear().toString(), t: "", o: "" }); setAwMode("add"); };
+  const awStartEdit = (a) => { setAwForm({ y: a.y, t: a.t, o: a.o }); setAwEditId(a.id); setAwMode("edit"); };
+  const awCancel = () => { setAwMode("list"); setAwEditId(null); };
+  const awHandleSave = async () => {
+    if (!awForm.y.trim() || !awForm.t.trim()) return;
+    let next;
+    if (awMode === "add") {
+      const newId = awardItems.length > 0 ? Math.max(...awardItems.map(a => a.id)) + 1 : 1;
+      next = [...awardItems, { id: newId, ...awForm }].sort((a, b) => a.y.localeCompare(b.y));
+    } else {
+      next = awardItems.map(a => a.id === awEditId ? { ...a, ...awForm } : a).sort((a, b) => a.y.localeCompare(b.y));
+    }
+    await awSave(next);
+    setAwMode("list"); setAwEditId(null);
+  };
+  const awHandleDelete = async (id) => { await awSave(awardItems.filter(a => a.id !== id)); setAwDel(null); };
 
   const fs = { fontSize: 13, color: "var(--tm)" };
   const lbl: React.CSSProperties = { fontSize: 12, fontWeight: 600, color: "var(--td)", marginBottom: 6, display: "block" };
@@ -503,6 +528,36 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
     </div>
   </section>;
 
+  // === AWARDS FORM VIEW ===
+  if (awMode === "add" || awMode === "edit") return <section style={{ padding: "140px 24px 96px", background: "#f1f5f9", minHeight: "100vh" }}>
+    <div style={{ maxWidth: 680, margin: "0 auto" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 28 }}>
+        <h1 style={{ fontFamily: "var(--fd)", fontWeight: 700, fontSize: 22 }}>{awMode === "add" ? "수상 실적 추가" : "수상 실적 수정"}</h1>
+        <button onClick={awCancel} style={{ background: "none", border: "none", fontSize: 13, color: "#94a3b8", cursor: "pointer" }}>← 목록으로</button>
+      </div>
+      <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", padding: 32 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "120px 1fr", gap: 16, marginBottom: 16 }}>
+          <div>
+            <label style={lbl}>연도 *</label>
+            <input type="number" value={awForm.y} onChange={e => setAwForm({ ...awForm, y: e.target.value })} placeholder="2026" style={inp}/>
+          </div>
+          <div>
+            <label style={lbl}>수상명 *</label>
+            <input value={awForm.t} onChange={e => setAwForm({ ...awForm, t: e.target.value })} placeholder="예: 과기정통부 장관상" style={inp}/>
+          </div>
+        </div>
+        <div style={{ marginBottom: 24 }}>
+          <label style={lbl}>수여 기관 / 설명</label>
+          <input value={awForm.o} onChange={e => setAwForm({ ...awForm, o: e.target.value })} placeholder="예: K-Global 창업멘토링 우수멘티" style={inp}/>
+        </div>
+        <div style={{ display: "flex", gap: 12, justifyContent: "flex-end" }}>
+          <button onClick={awCancel} style={{ padding: "10px 20px", background: "none", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, cursor: "pointer" }}>취소</button>
+          <button onClick={awHandleSave} style={{ padding: "10px 24px", background: "var(--br)", color: "#fff", border: "none", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}><Save size={14}/>{awMode === "add" ? "추가" : "저장"}</button>
+        </div>
+      </div>
+    </div>
+  </section>;
+
   return <section style={{ padding: "140px 24px 96px", background: "#f1f5f9", minHeight: "100vh" }}>
     <div style={{ maxWidth: 900, margin: "0 auto" }}>
       {/* Header + Tabs */}
@@ -520,6 +575,7 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
         <button onClick={() => setTab("history")} style={tabStyle(tab === "history")}><Clock size={14}/>연혁 ({histItems.length})</button>
         <button onClick={() => setTab("members")} style={tabStyle(tab === "members")}><Users size={14}/>멤버 ({memberItems.length})</button>
         <button onClick={() => setTab("partners")} style={tabStyle(tab === "partners")}><Building2 size={14}/>파트너 ({partnerItems.length})</button>
+        <button onClick={() => setTab("awards")} style={tabStyle(tab === "awards")}>🏆 수상 ({awardItems.length})</button>
       </div>
 
       {/* === NOTICES TAB === */}
@@ -726,6 +782,40 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
         })}
         <div style={{ marginTop: 16, fontSize: 11, color: "#cbd5e1", textAlign: "center" }}>276홀딩스 파트너 관리 · 카테고리: {PARTNER_CATEGORIES.join(", ")}</div>
       </>}
+
+      {/* === AWARDS TAB === */}
+      {tab === "awards" && <>
+        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 16 }}>
+          <button onClick={awStartAdd} style={{ padding: "9px 16px", background: "var(--br)", color: "#fff", border: "none", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 5 }}><Plus size={14}/>수상 추가</button>
+        </div>
+        {!awLoaded ? <div style={{ padding: 32, textAlign: "center", ...fs }}>불러오는 중...</div> :
+          awardItems.length === 0 ? <div style={{ padding: 48, textAlign: "center", ...fs }}>등록된 수상 실적이 없습니다.</div> : (() => {
+            const years = [...new Set(awardItems.map(a => a.y))].sort((a,b) => b.localeCompare(a));
+            return years.map(yr => {
+              const items = awardItems.filter(a => a.y === yr);
+              return <div key={yr} style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ny)", marginBottom: 8, fontFamily: "var(--fd)" }}>{yr}</div>
+                <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #e2e8f0", overflow: "hidden" }}>
+                  {items.map((a, ai) => (
+                    <div key={a.id} style={{ padding: "14px 20px", borderBottom: ai < items.length - 1 ? "1px solid #f1f5f9" : "none", display: "flex", alignItems: "center", gap: 12 }}>
+                      <div style={{ width: 36, height: 22, background: "linear-gradient(135deg,var(--bw),var(--br))", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, flexShrink: 0 }}>🏆</div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 14, fontWeight: 600, color: "var(--td)" }}>{a.t}</div>
+                        <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>{a.o}</div>
+                      </div>
+                      <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+                        <button onClick={() => awStartEdit(a)} title="수정" style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }}><Edit3 size={14} color="#64748b"/></button>
+                        <button onClick={() => setAwDel(a.id)} title="삭제" style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }}><Trash2 size={14} color="#f87171"/></button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>;
+            });
+          })()
+        }
+        <div style={{ marginTop: 16, fontSize: 11, color: "#cbd5e1", textAlign: "center" }}>수상 실적은 홈페이지 AWARDS & RECOGNITION 섹션에 반영됩니다</div>
+      </>}
     </div>
 
     {/* Delete Confirmation Modal */}
@@ -805,6 +895,20 @@ function Admin({ setPage }: { setPage: (id: string) => void }) {
         <CheckCircle2 size={28} strokeWidth={1.2} color="var(--br)" style={{ marginBottom: 12 }}/>
         <p style={{ fontSize: 15, fontWeight: 600, color: "var(--td)", marginBottom: 24 }}>{mMsg}</p>
         <button onClick={() => setMMsg(null)} style={{ padding: "10px 32px", background: "var(--br)", color: "#fff", border: "none", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer" }}>확인</button>
+      </div>
+    </>}
+
+    {/* Awards Delete Confirmation Modal */}
+    {awDel && <>
+      <div onClick={() => setAwDel(null)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.4)", zIndex: 9998, animation: "fadeIn .2s ease" }}/>
+      <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%,-50%)", background: "#fff", borderRadius: 12, padding: 32, width: "min(360px, calc(100vw - 40px))", zIndex: 9999, textAlign: "center", boxShadow: "0 20px 60px rgba(0,0,0,.2)" }}>
+        <Trash2 size={28} strokeWidth={1.2} color="#f87171" style={{ marginBottom: 12 }}/>
+        <h3 style={{ fontFamily: "var(--fd)", fontWeight: 700, fontSize: 18, marginBottom: 8 }}>수상 실적 삭제</h3>
+        <p style={{ fontSize: 13, color: "#94a3b8", marginBottom: 24 }}>삭제된 수상 실적은 복구할 수 없습니다.<br/>정말 삭제하시겠습니까?</p>
+        <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
+          <button onClick={() => setAwDel(null)} style={{ padding: "10px 24px", background: "none", border: "1px solid #e2e8f0", borderRadius: 8, fontSize: 14, cursor: "pointer" }}>취소</button>
+          <button onClick={() => awHandleDelete(awDel)} style={{ padding: "10px 24px", background: "#ef4444", color: "#fff", border: "none", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer" }}>삭제</button>
+        </div>
       </div>
     </>}
 

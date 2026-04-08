@@ -35,7 +35,7 @@ function Nav({ page, setPage }: { page?: string; setPage: (id: string) => void; 
             <span style={{ fontFamily: "var(--fd)", fontSize: 15, fontWeight: 500, color: tc, cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}>서비스 <span style={{ fontSize: 10 }}>▼</span></span>
             {dd && <div style={{ position: "absolute", top: "100%", left: -16, paddingTop: 12, width: 240, zIndex: 60 }}>
               <div style={{ background: "#fff", borderRadius: 12, boxShadow: "0 16px 48px rgba(0,0,0,.12)", border: "1px solid var(--bd)", padding: 8, animation: "fadeUp .2s ease" }}>
-                {[{id:"flowpay",l:"FlowPay",d:"구매대행 선지급"},{id:"flowscore",l:"FlowScore",d:"AI 신용평가"},{id:"flowpoint",l:"FlowPoint",d:"매출채권 전자화"}].map(i=>
+                {[{id:"flowpay",l:"FLOW PAY",d:"구매대행 선지급"},{id:"flowscore",l:"FLOW SCORE",d:"AI 신용평가"},{id:"flowpoint",l:"FLOW POINT",d:"매출채권 전자화"}].map(i=>
                   <div key={i.id} onClick={()=>{setPage(i.id);setDd(false)}} style={{padding:"12px 16px",borderRadius:8,cursor:"pointer",transition:"background .2s"}} onMouseEnter={e=>e.currentTarget.style.background="var(--alt)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
                     <div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:14,color:"var(--td)"}}>{i.l}</div>
                     <div style={{fontSize:13,color:"var(--tm)",marginTop:2}}>{i.d}</div>
@@ -50,7 +50,7 @@ function Nav({ page, setPage }: { page?: string; setPage: (id: string) => void; 
       <button onClick={()=>setMenu(!menu)} style={{display:"none",background:"none",border:"none",cursor:"pointer",padding:8,color:tc,fontSize:24}} className="mbtn">{menu?"✕":"☰"}</button>
     </nav>
     {menu && <div className="mmenu">
-      {[["home","홈"],["flowpay","FlowPay"],["flowscore","FlowScore"],["flowpoint","FlowPoint"],["about","회사 소개"],["esg","ESG"],["notices","공지사항"],["faq","FAQ"],["terms","이용약관"],["contact","문의하기"]].map(([id,l])=><a key={id} href="#" onClick={e=>{e.preventDefault();setPage(id)}}>{l}</a>)}
+      {[["home","홈"],["flowpay","FLOW PAY"],["flowscore","FLOW SCORE"],["flowpoint","FLOW POINT"],["about","회사 소개"],["esg","ESG"],["notices","공지사항"],["faq","FAQ"],["terms","이용약관"],["contact","문의하기"]].map(([id,l])=><a key={id} href="#" onClick={e=>{e.preventDefault();setPage(id)}}>{l}</a>)}
     </div>}
   </>;
 }
