@@ -20,6 +20,7 @@ export const routes = {
   esg: "/esg",
   notices: "/notices",
   terms: "/terms",
+  privacy: "/privacy",
   admin: "/admin",
 } as const;
 

@@ -60,7 +60,7 @@ function Esg() {
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         <Reveal>
           <div className="slbl">ESG REPORT 2025</div>
-          <h1 style={{ fontFamily: "var(--fd)", fontSize: "clamp(32px,5vw,48px)", fontWeight: 800, letterSpacing: "-.03em", marginBottom: 12 }}>지속가능한 미래를 위한 약속.</h1>
+          <h1 style={{ fontFamily: "var(--fd)", fontSize: "clamp(32px,5vw,48px)", fontWeight: 800, letterSpacing: "-.03em", marginBottom: 12 }}>지속가능한 미래를 위한 약속</h1>
           <p style={{ fontSize: 17, color: "var(--tm)", lineHeight: 1.7, maxWidth: 640, marginBottom: 40 }}>276홀딩스는 '책임 있는 혁신'을 핵심 철학으로, 기술로 금융을 새롭게, 금융으로 사회를 지속가능하게 만들어 갑니다.</p>
         </Reveal>
         <Reveal delay={.15}>
@@ -75,7 +75,7 @@ function Esg() {
     {/* ESG Highlights — 5대 임팩트 */}
     <section style={{ padding: "72px 24px", background: "#fff" }}>
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        <Reveal><SH label="ESG HIGHLIGHTS" title="금융을 매개로 한 사회적 가치 창출." subtitle="자금 흐름의 효율성을 높이고, 거래의 투명성과 안정성을 강화하여 지속가능한 비즈니스 환경을 조성합니다."/></Reveal>
+        <Reveal><SH label="ESG HIGHLIGHTS" title="금융을 매개로 한 사회적 가치 창출" subtitle="자금 흐름의 효율성을 높이고, 거래의 투명성과 안정성을 강화하여 지속가능한 비즈니스 환경을 조성합니다."/></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12 }}>
           {highlights.map((h, i) => (
             <Reveal key={i} delay={i * .08}>
@@ -120,7 +120,7 @@ function Esg() {
     {/* Environmental Goals */}
     <section style={{ padding: "72px 24px", background: "#fff" }}>
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        <Reveal><SH label="GREEN IMPACT" title="환경경영 목표." subtitle="디지털 전환을 통한 자원 절감과 탄소 저감을 추진합니다."/></Reveal>
+        <Reveal><SH label="GREEN IMPACT" title="환경경영 목표" subtitle="디지털 전환을 통한 자원 절감과 탄소 저감을 추진합니다."/></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
           {envGoals.map((g, i) => (
             <Reveal key={i} delay={i * .1}>
@@ -148,7 +148,7 @@ function Esg() {
     {/* Social & Governance KPIs */}
     <section style={{ padding: "72px 24px 96px", background: "var(--alt)" }}>
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        <Reveal><SH label="RESPONSIBLE MANAGEMENT" title="숫자로 증명하는 책임 경영." subtitle="투명한 경영과 정보보호, 윤리 실천의 성과입니다."/></Reveal>
+        <Reveal><SH label="RESPONSIBLE MANAGEMENT" title="숫자로 증명하는 책임 경영" subtitle="투명한 경영과 정보보호, 윤리 실천의 성과입니다."/></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
           {socialKpis.map((k, i) => (
             <Reveal key={i} delay={i * .1}>
