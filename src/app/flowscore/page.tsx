@@ -41,9 +41,6 @@ function FS({ setPage }: { setPage: (id: string) => void }) {
         {[{Ic:Search,nm:"재무적 건전성",v:"재무비율, 신용등급, 연체정보"},{Ic:Building2,nm:"구조적 안정성",v:"임직원 변동, 지배구조, 특수관계"},{Ic:Activity,nm:"운영 의지",v:"업로드 문서, 결제시간, 12개월 이벤트"},{Ic:BarChart3,nm:"거래 건전성",v:"거래처 집중도, 물품, 결제 내역"},{Ic:MessageCircle,nm:"소통 및 이슈",v:"피드백 반응, 누락 문서 제출"}].map((d,i)=>
           <Reveal key={i} delay={i*.1}><div className="bcard" style={{textAlign:"center"}}><div style={{marginBottom:12,display:"flex",justifyContent:"center"}}><LI icon={d.Ic}/></div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:16,marginBottom:8}}>{d.nm}</h3><p style={{fontSize:13,color:"var(--tm)",lineHeight:1.6}}>{d.v}</p></div></Reveal>)}
       </div>
-      <Reveal delay={.3}><div style={{marginTop:48,padding:"24px 32px",background:"#fff",borderRadius:12,border:"1px solid var(--bd)",textAlign:"center"}}>
-        <div style={{fontFamily:"var(--fm)",fontSize:14,color:"var(--tm)",lineHeight:2.2}}><span style={{color:"var(--bw)",fontWeight:600}}>491개 Feature</span> → Gate 1 → Gate 2 → Gate 3 → Gate 4 → <span style={{color:"var(--br)",fontWeight:600}}>AI Scoring</span> → <span style={{color:"var(--ny)",fontWeight:600}}>Reason Code</span></div>
-      </div></Reveal>
     </div></section>
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:1000,margin:"0 auto"}}>
       <Reveal><SH label="CASE STUDIES" title="FLOW SCORE가 실제로 작동한 순간"/></Reveal>

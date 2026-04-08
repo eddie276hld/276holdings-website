@@ -9,23 +9,27 @@ function NoticePopup({ setPage }: { setPage: (id: string) => void }) {
   const [popup, setPopup] = useState<any>(null);
 
   useEffect(() => {
-    let dismissed = false;
-    try { dismissed = !!sessionStorage.getItem("notice-popup-dismissed"); } catch {}
-    if (dismissed) return;
-    (async () => {
-      let list = DEFAULT_NOTICES;
-      try {
-        const r = await window.storage.get("notices-data");
-        if (r && r.value) list = JSON.parse(r.value);
-      } catch {}
-      const today = new Date().toISOString().slice(0, 10);
-      const p = list.find(n => n.isPopup && (!n.popupStart || n.popupStart <= today) && (!n.popupEnd || n.popupEnd >= today));
-      if (p) { setPopup(p); setTimeout(() => setShow(true), 800); }
-    })();
+    const today = new Date().toISOString().slice(0, 10);
+    try {
+      const dismissedDate = localStorage.getItem("notice-popup-dismissed-date");
+      if (dismissedDate === today) return;
+    } catch {}
+
+    let list = DEFAULT_NOTICES;
+    try {
+      const raw = localStorage.getItem("notices-data");
+      if (raw) list = JSON.parse(raw);
+    } catch {}
+
+    const p = list.find(n => n.isPopup && (!n.popupStart || n.popupStart <= today) && (!n.popupEnd || n.popupEnd >= today));
+    if (p) { setPopup(p); setTimeout(() => setShow(true), 800); }
   }, []);
 
   const close = () => setShow(false);
-  const dismissToday = () => { try { sessionStorage.setItem("notice-popup-dismissed", "1"); } catch {} setShow(false); };
+  const dismissToday = () => {
+    try { localStorage.setItem("notice-popup-dismissed-date", new Date().toISOString().slice(0, 10)); } catch {}
+    setShow(false);
+  };
 
   if (!show || !popup) return null;
 
