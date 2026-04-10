@@ -8,7 +8,6 @@ import { SH } from "@/components/ui/SectionHeader";
 import { Stat } from "@/components/ui/Stat";
 import { LI } from "@/components/ui/LucideIcon";
 import HeroVisual from "@/components/home/HeroCanvas";
-import HeroMorphImages from "@/components/home/HeroMorphImages";
 import { usePress } from "@/hooks/usePress";
 import { useAwards } from "@/hooks/useAwards";
 
@@ -77,8 +76,7 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
   return <>
     <section className="hero-bg hero-section" style={{ display: "flex", flexDirection: "column", justifyContent: "center", position: "relative", overflow: "hidden" }}>
       <HeroVisual/>
-      <HeroMorphImages/>
-      <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", position: "relative", zIndex: 2, paddingRight: "40%" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", position: "relative", zIndex: 2 }}>
         <div style={{ display: "flex", gap: 12, marginBottom: 32, flexWrap: "wrap", animation: "fadeUp .8s ease" }}>
           {["🏆 과기부 장관상 2024","🏆 중기부 장관상 2년 연속"].map(b=><span key={b} style={{ background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",borderRadius:999,padding:"6px 16px",fontSize:13,color:"rgba(255,255,255,.7)",fontWeight:500,backdropFilter:"blur(8px)" }}>{b}</span>)}
         </div>
