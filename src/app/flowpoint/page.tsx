@@ -1,8 +1,7 @@
 "use client";
 import { navigateTo } from "@/lib/navigation";
 
-import { useState, useEffect, useRef } from "react";
-import { FolderOpen, Link2, ArrowRightLeft, Coins, FileWarning, Hourglass, Lock, Link } from "lucide-react";
+import { FolderOpen, Link2, ArrowRightLeft, Coins, FileWarning, Hourglass, Lock } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SH } from "@/components/ui/SectionHeader";
 import { LI } from "@/components/ui/LucideIcon";
@@ -29,6 +28,7 @@ function FPt({ setPage }: { setPage: (id: string) => void }) {
       </div>
       <div style={{ position:"absolute",bottom:0,left:0,right:0,height:1,background:"rgba(255,255,255,0.08)",zIndex:2 }}/>
     </section>
+
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:1000,margin:"0 auto"}}>
       <Reveal><SH label="MARKET PAIN" title="중소기업이 매일 마주하는 벽"/></Reveal>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(260px,1fr))",gap:24}}>
@@ -36,6 +36,7 @@ function FPt({ setPage }: { setPage: (id: string) => void }) {
           <Reveal key={i} delay={i*.1}><div className="card" style={{height:"100%"}}><div style={{marginBottom:16}}><LI icon={p.Ic}/></div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:18,marginBottom:8}}>{p.t}</h3><p style={{fontSize:15,color:"var(--tm)",lineHeight:1.7}}>{p.d}</p></div></Reveal>)}
       </div>
     </div></section>
+
     <section style={{padding:"96px 24px",background:"var(--alt)"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
       <Reveal><SH label="KEY FEATURES" title="계약서 관리부터 유동화까지, 한 곳에서"/></Reveal>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",gap:24}}>
@@ -43,13 +44,15 @@ function FPt({ setPage }: { setPage: (id: string) => void }) {
           <Reveal key={i} delay={i*.1}><div className="bcard" style={{height:"100%"}}><div style={{marginBottom:12}}><LI icon={f.Ic}/></div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:17,marginBottom:8}}>{f.t}</h3><p style={{fontSize:14,color:"var(--tm)",lineHeight:1.7}}>{f.d}</p></div></Reveal>)}
       </div>
     </div></section>
+
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:800,margin:"0 auto"}}>
-      <Reveal><SH label="SERVICE FLOW" title="5단계 서비스 플로우"/></Reveal>
+      <Reveal><SH label="SERVICE FLOW" title="4단계 서비스 플로우"/></Reveal>
       <div style={{display:"flex",flexDirection:"column",gap:12}}>
-        {[{n:"1",t:"계약서 작성 등록","d":"매출계약서를 온라인에서 작성하고 즉시 등록"},{n:"2",t:"통합 관리","d":"과거·현재·미래 계약을 한 화면에서 통합 관리"},{n:"3",t:"전자 매출채권 전환","d":"종이 계약을 디지털 자산(전자채권)으로 전환"},{n:"4",t:"거래처 전달 / 양수도","d":"거래처에 전달하거나 제3자에게 양수도"},{n:"5",t:"유동화 활용","d":"전자채권을 즉시 현금화 — 운전자금 확보"}].map((s,i)=>
-          <Reveal key={i} delay={i*.08}><div className="fstep"><div className="fnum">{s.n}</div><div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:16}}>{s.t}</div><div style={{fontSize:14,color:"var(--tm)",marginTop:4}}>{s.d}</div></div></div></Reveal>)}
+        {[{n:"1",t:"거래 계약서 등록 시 전자매출채권 생성"},{n:"2",t:"결제 금액, 만기일, 거래처 등 온라인 관리"},{n:"3",t:"거래처 전달 / 양수도"},{n:"4",t:"유동화 활용 (Liquidity)"}].map((s,i)=>
+          <Reveal key={i} delay={i*.08}><div className="fstep"><div className="fnum">{s.n}</div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:16}}>{s.t}</div></div></Reveal>)}
       </div>
     </div></section>
+
     <section style={{padding:"96px 24px",background:"linear-gradient(135deg,var(--ny),#132240)",color:"#fff",textAlign:"center"}}><Reveal><div style={{maxWidth:500,margin:"0 auto"}}>
       <h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(24px,4vw,32px)",marginBottom:16,color:"#fff"}}>종이 계약의 비효율, 지금 끝내세요.</h2>
       <p style={{fontSize:16,color:"rgba(255,255,255,.55)",marginBottom:36}}>FLOW POINT로 매출채권을 디지털 자산으로 전환하세요</p>
