@@ -27,7 +27,27 @@
       "Bash(findstr LISTENING)",
       "Bash(taskkill /PID 53680 /F)",
       "Bash(cmd /c \"taskkill /PID 53680 /F\")",
-      "Bash(cmd /c \"netstat -ano | findstr :3000 | findstr LISTENING\")"
+      "Bash(cmd /c \"netstat -ano | findstr :3000 | findstr LISTENING\")",
+      "WebSearch",
+      "Bash(dir \"C:\\\\claude276\\\\276holdings-web\\\\public\\\\bg_img\")",
+      "mcp__mcp-obsidian__obsidian_list_files_in_vault",
+      "Bash(gh auth:*)",
+      "Bash(git -C /c/claude276/276holdings-web ls-remote origin HEAD)",
+      "Bash(git -C /c/claude276/276holdings-web remote show origin)",
+      "Bash(git -C /c/claude276/276holdings-web branch -a)",
+      "Bash(git -C /c/claude276/276holdings-web status)",
+      "Bash(git -C /c/claude276/276holdings-web config credential.helper)",
+      "Bash(git credential-manager:*)",
+      "Bash(git credential-manager-core:*)",
+      "Bash(git config:*)",
+      "Bash(git -C /c/claude276/276holdings-web config --list --local)",
+      "Bash(git -C /c/claude276/276holdings-web push --dry-run origin main)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('scripts',{}\\), indent=2\\)\\)\")",
+      "Bash(git -C /c/claude276/276holdings-web diff src/app/page.tsx)",
+      "mcp__mcp-obsidian__obsidian_get_file_contents",
+      "mcp__mcp-obsidian__obsidian_append_content",
+      "mcp__mcp-obsidian__obsidian_list_files_in_dir",
+      "mcp__mcp-obsidian__obsidian_patch_content"
     ]
   }
 }
