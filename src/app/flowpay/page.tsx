@@ -40,16 +40,21 @@ function FP({ setPage }: { setPage: (id: string) => void }) {
       </div>
     </div></section>
     <section style={{padding:"96px 24px",background:"var(--alt)"}}><div style={{maxWidth:800,margin:"0 auto"}}>
-      <Reveal><SH label="SERVICE FLOW" title="5단계 서비스 플로우" subtitle="발주 신청부터 정산까지, 투명한 프로세스"/></Reveal>
+      <Reveal><SH label="SERVICE FLOW" title="6단계 서비스 플로우" subtitle="발주 신청부터 정산까지, 이중 안전장치가 적용된 프로세스"/></Reveal>
       <div style={{display:"flex",flexDirection:"column",gap:12}}>
-        {[{n:"1",t:"고객사 발주 신청",d:"원자재·상품 발주 요청 접수"},{n:"2",t:"심사 및 승인",d:"매출채권·거래 리스크 AI 평가"},{n:"3",t:"플로우페이 선결제",d:"조달처에 즉시 현금 구매"},{n:"4",t:"원자재 공급",d:"고객사 생산·납품 정상 진행"},{n:"5",t:"사후 정산",d:"납품 완료 후 정산 주기 회수"}].map((s,i)=>
+        {[{n:"1",t:"고객사 발주 신청",d:"원자재·상품 발주 요청 접수"},{n:"2",t:"FlowScore AI 심사",d:"매출채권·거래 리스크 AI 정밀 평가"},{n:"3",t:"보증보험 연계",d:"2차 안전장치 적용, 위험 분산 구조 확보"},{n:"4",t:"276홀딩스 선결제",d:"조달처에 즉시 현금 구매"},{n:"5",t:"원자재 선공급",d:"고객사 생산·납품 정상 진행"},{n:"6",t:"대금 회수(정산)",d:"납품 완료 후 정산 주기에 맞춰 회수"}].map((s,i)=>
           <Reveal key={i} delay={i*.08}><div className="fstep"><div className="fnum">{s.n}</div><div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:16}}>{s.t}</div><div style={{fontSize:14,color:"var(--tm)",marginTop:2}}>{s.d}</div></div></div></Reveal>)}
       </div>
     </div></section>
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
-      <Reveal><SH label="TRACK RECORD" title="숫자가 말하는 FLOW PAY." subtitle="실제 거래 데이터를 기반으로 한 서비스 성과입니다"/></Reveal>
+      <Reveal><SH label="TRACK RECORD" title="숫자가 말하는 FLOW PAY." subtitle="2022.09 ~ 2025.11 실제 거래 데이터 기준"/></Reveal>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:24}}>
-        <Reveal><Stat value={195} suffix="억원" label="총 공급대금"/></Reveal><Reveal delay={.1}><Stat value={44} suffix="일" label="평균 결제 주기"/></Reveal><Reveal delay={.2}><Stat value={4} suffix=".5%" label="평균 거래 수수료"/></Reveal><Reveal delay={.3}><Stat value={65} suffix="%+" label="재구매 고객 비중"/></Reveal><Reveal delay={.4}><Stat value={157} suffix="%" label="매출 성장 효과"/></Reveal>
+        <Reveal><Stat value={1295} suffix="건" label="총 거래 건수"/></Reveal>
+        <Reveal delay={.1}><Stat value={133} suffix=".7억원" label="총 거래 금액"/></Reveal>
+        <Reveal delay={.2}><Stat value={5} suffix=".07%" label="거래당 실현 수익률"/></Reveal>
+        <Reveal delay={.3}><Stat value={0} suffix=".22%" label="최종 부도율"/></Reveal>
+        <Reveal delay={.4}><Stat value={44} suffix="일" label="평균 거래 만기일"/></Reveal>
+        <Reveal delay={.5}><Stat value={65} suffix="%+" label="재구매 고객 비중"/></Reveal>
       </div>
     </div></section>
     <section style={{padding:"96px 24px",background:"var(--alt)"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
@@ -60,7 +65,20 @@ function FP({ setPage }: { setPage: (id: string) => void }) {
       </div>
     </div></section>
 
-    <section style={{padding:"64px 24px",background:"#fff"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
+    <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
+      <Reveal><SH label="CUSTOMER IMPACT" title="도입 기업의 실제 성과" subtitle="FlowPay를 도입한 기업의 평균 성과 지표입니다"/></Reveal>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:24,marginTop:48}}>
+        {[{v:"358%",l:"도입 기업 평균 매출 증가율",d:"FlowPay 도입 전 대비"},{v:"179%",l:"순이익 증가율 (수수료 제외)",d:"실제 사업 수익성 개선"},{v:"1.6년",l:"평균 거래 지속 기간",d:"고객당 평균 12회 재거래"},{v:"65%+",l:"재구매 고객 비중",d:"실물 거래 기반 Lock-in 효과"}].map((it,i)=>(
+          <Reveal key={i} delay={i*.1}><div style={{padding:32,background:"var(--alt)",border:"1px solid var(--bd)",borderRadius:12}}>
+            <div style={{fontFamily:"var(--fd)",fontWeight:800,fontSize:40,color:"var(--ny)",letterSpacing:"-.03em"}}>{it.v}</div>
+            <div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:15,marginTop:8,color:"var(--td)"}}>{it.l}</div>
+            <div style={{fontSize:13,color:"var(--tm)",marginTop:4}}>{it.d}</div>
+          </div></Reveal>
+        ))}
+      </div>
+    </div></section>
+
+    <section style={{padding:"64px 24px",background:"#f8fafc"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
       <Reveal><div style={{textAlign:"center",marginBottom:32}}><div className="slbl">TRUSTED BY 1,100+ PARTNERS</div><h3 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(20px,3vw,28px)",color:"var(--td)",marginBottom:8,letterSpacing:"-.02em"}}>대표적인 원자재 공급 기업</h3><p style={{fontSize:15,color:"var(--tm)"}}>국내 주요 대기업 및 글로벌 기관과 함께합니다</p></div></Reveal>
       <LogoMarquee/>
     </div></section>

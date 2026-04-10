@@ -44,10 +44,10 @@ function FPt({ setPage }: { setPage: (id: string) => void }) {
       </div>
     </div></section>
     <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:800,margin:"0 auto"}}>
-      <Reveal><SH label="SERVICE FLOW" title="4단계 서비스 플로우"/></Reveal>
+      <Reveal><SH label="SERVICE FLOW" title="5단계 서비스 플로우"/></Reveal>
       <div style={{display:"flex",flexDirection:"column",gap:12}}>
-        {[{n:"1",t:"거래 계약서 등록 시 전자매출채권 생성"},{n:"2",t:"결제 금액, 만기일, 거래처 등 온라인 관리"},{n:"3",t:"거래처 전달 / 양수도"},{n:"4",t:"유동화 활용 (Liquidity)"}].map((s,i)=>
-          <Reveal key={i} delay={i*.08}><div className="fstep"><div className="fnum">{s.n}</div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:16}}>{s.t}</div></div></Reveal>)}
+        {[{n:"1",t:"계약서 작성 등록","d":"매출계약서를 온라인에서 작성하고 즉시 등록"},{n:"2",t:"통합 관리","d":"과거·현재·미래 계약을 한 화면에서 통합 관리"},{n:"3",t:"전자 매출채권 전환","d":"종이 계약을 디지털 자산(전자채권)으로 전환"},{n:"4",t:"거래처 전달 / 양수도","d":"거래처에 전달하거나 제3자에게 양수도"},{n:"5",t:"유동화 활용","d":"전자채권을 즉시 현금화 — 운전자금 확보"}].map((s,i)=>
+          <Reveal key={i} delay={i*.08}><div className="fstep"><div className="fnum">{s.n}</div><div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:16}}>{s.t}</div><div style={{fontSize:14,color:"var(--tm)",marginTop:4}}>{s.d}</div></div></div></Reveal>)}
       </div>
     </div></section>
     <section style={{padding:"96px 24px",background:"linear-gradient(135deg,var(--ny),#132240)",color:"#fff",textAlign:"center"}}><Reveal><div style={{maxWidth:500,margin:"0 auto"}}>

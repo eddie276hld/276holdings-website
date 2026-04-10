@@ -49,6 +49,13 @@ function FS({ setPage }: { setPage: (id: string) => void }) {
         <Reveal delay={.15}><div className="card" style={{borderLeft:"none",overflow:"hidden",position:"relative",paddingTop:44}}><div style={{position:"absolute",top:0,left:0,right:0,height:4,borderRadius:"12px 12px 0 0",background:"linear-gradient(90deg, #4ade80, #22c55e, #16a34a, #15803d)"}}/><div style={{fontFamily:"var(--fm)",fontSize:12,color:"var(--gn)",marginBottom:12}}>CASE 2 — 수익 기회 발굴</div><h3 style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:18,marginBottom:16}}>고회전 소기업 발굴</h3><div style={{fontSize:14,color:"var(--tm)",lineHeight:1.8}}><p><strong>기존 평가:</strong> 업력 2년 미만, 금융 거절</p><p><strong>FLOW SCORE:</strong> 상환 성실도 100%, 연체 0%</p><p style={{color:"var(--gn)",fontWeight:600,marginTop:8}}>결과: 누적 거래 200+, 마진율 5%</p></div></div></Reveal>
       </div>
     </div></section>
+    <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:800,margin:"0 auto"}}>
+      <Reveal><SH label="EVALUATION PROCESS" title="4단계 게이트 평가 프로세스" subtitle="491개 변수 피처링 후 AI 모델 스코어링까지 투명한 프로세스"/></Reveal>
+      <div style={{display:"flex",flexDirection:"column",gap:12}}>
+        {[{n:"491",u:"개 변수",t:"Featurization",d:"5-Dimension 기반 491개 변수 추출"},{n:"G1",u:"",t:"적법성 심사",d:"법적 적격 여부, 사업자 유효성 검증"},{n:"G2",u:"",t:"Rule 기반 심사",d:"업종별·거래 패턴 기반 사전 필터링"},{n:"G3",u:"",t:"재무지표 통합",d:"재무 건전성 지표 AI 모델 입력 통합"},{n:"G4",u:"",t:"행동지표 통합",d:"비재무 행동 데이터 통합 분석"},{n:"AI",u:"",t:"AI 모델 스코어링",d:"최종 리스크 점수 산출 + Reason Code 제공"}].map((s,i)=>
+          <Reveal key={i} delay={i*.07}><div className="fstep"><div className="fnum" style={{minWidth:48,fontSize:s.n.length>2?13:undefined}}>{s.n}{s.u&&<span style={{fontSize:10}}>{s.u}</span>}</div><div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:16}}>{s.t}</div><div style={{fontSize:14,color:"var(--tm)",marginTop:2}}>{s.d}</div></div></div></Reveal>)}
+      </div>
+    </div></section>
     <section style={{padding:"96px 24px",background:"var(--alt)"}}><div style={{maxWidth:600,margin:"0 auto",textAlign:"center"}}><Reveal>
       <div className="slbl">MODEL PERFORMANCE</div>
       <h2 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(22px,3.5vw,32px)",letterSpacing:"-.02em",margin:"16px 0 0"}}>더욱 안정된 수치로 검증해가고 있습니다.</h2>
