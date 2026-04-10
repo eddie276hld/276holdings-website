@@ -7,16 +7,73 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SH } from "@/components/ui/SectionHeader";
 import { Stat } from "@/components/ui/Stat";
 import { LI } from "@/components/ui/LucideIcon";
-import LogoMarquee from "@/components/home/LogoMarquee";
 import HeroVisual from "@/components/home/HeroCanvas";
-import NoticePopup from "@/components/home/NoticePopup";
 import { usePress } from "@/hooks/usePress";
 import { useAwards } from "@/hooks/useAwards";
 
+// === Stats canvas — 별도 컴포넌트로 분리 (Hook Rules 준수) ===
+function StatsCanvas() {
+  const cvRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const c = cvRef.current; if (!c) return;
+    const dpr = window.devicePixelRatio || 1;
+    const W = 1400, H = 420;
+    c.width = W * dpr; c.height = H * dpr;
+    c.style.width = W + "px"; c.style.height = H + "px";
+    const ctx = c.getContext("2d"); if (!ctx) return;
+    ctx.scale(dpr, dpr);
+    const cx = W / 2, cy = H + 20;
+    const count = 120;
+    const rays = Array.from({ length: count }, (_, i) => ({
+      angle: Math.PI + (Math.PI * (i / (count - 1))),
+      baseLen: 80 + Math.random() * 280,
+      speed: .3 + Math.random() * .7,
+      phase: Math.random() * Math.PI * 2,
+      nodeR: 1.8 + Math.random() * 2.5,
+      ci: i,
+    }));
+    let t = 0, raf = 0;
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      t += .003;
+      rays.forEach(r => {
+        const breath = Math.sin(t * r.speed * 3 + r.phase);
+        const len = r.baseLen + breath * 30;
+        const tipX = cx + Math.cos(r.angle) * len;
+        const tipY = cy + Math.sin(r.angle) * len;
+        const progress = r.ci / count;
+        const cr = Math.round(168 - progress * 40);
+        const cg = Math.round(149 - progress * 30 + Math.sin(progress * Math.PI) * 25);
+        const cb = Math.round(134 + progress * 50);
+        const lineAlpha = .12 + breath * .04;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(tipX, tipY);
+        ctx.strokeStyle = `rgba(${cr},${cg},${cb},${lineAlpha})`; ctx.lineWidth = .8; ctx.stroke();
+        const nodeAlpha = .3 + breath * .15;
+        const glow = ctx.createRadialGradient(tipX, tipY, 0, tipX, tipY, r.nodeR * 3);
+        glow.addColorStop(0, `rgba(${cr},${cg},${cb},${nodeAlpha * .5})`);
+        glow.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+        ctx.fillStyle = glow;
+        ctx.fillRect(tipX - r.nodeR * 3, tipY - r.nodeR * 3, r.nodeR * 6, r.nodeR * 6);
+        ctx.beginPath(); ctx.arc(tipX, tipY, r.nodeR * (.8 + breath * .2), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${cr},${cg},${cb},${nodeAlpha})`; ctx.fill();
+      });
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  return <canvas ref={cvRef} style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}/>;
+}
+
 // === HOME PAGE ===
 function Home({ setPage }: { setPage: (id: string) => void }) {
+  // ✅ 모든 Hook을 컴포넌트 최상단에서 호출
+  const { awards } = useAwards();
+  const { press } = usePress();
+  const [pressIdx, setPressIdx] = useState(0);
+  const pressMaxIdx = Math.max(0, press.length - 3);
+
   return <>
-    <NoticePopup setPage={setPage}/>
     <section className="hero-bg hero-section" style={{ display: "flex", flexDirection: "column", justifyContent: "center", position: "relative" }}>
       <HeroVisual/>
       <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", position: "relative", zIndex: 2 }}>
@@ -37,7 +94,7 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
       <div style={{ position:"absolute",bottom:0,left:0,right:0,height:1,background:"rgba(255,255,255,0.08)" }}/>
     </section>
 
-    {/* Problem — now white bg */}
+    {/* Problem */}
     <section style={{ padding: "96px 24px", background: "#fff" }}><div style={{ maxWidth: 1200, margin: "0 auto" }}>
       <Reveal><SH label="MARKET PROBLEM" title="성장하는 기업이 자금 때문에 멈추지 않도록" subtitle="연간 5,000조원 매출채권 시장의 99%가 금융 사각지대입니다. 276홀딩스가 이 공백을 채웁니다"/></Reveal>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginTop: 48 }}>
@@ -50,7 +107,7 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
       </div>
     </div></section>
 
-    {/* FLOW Ecosystem — now dark bg */}
+    {/* FLOW Ecosystem */}
     <section style={{ padding: "96px 24px", background: "var(--nd)" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <Reveal><SH label="FLOW ECOSYSTEM" title="자금 흐름의 모든 단계를 커버합니다." subtitle="데이터 축적부터 신용평가, 자금 집행까지 — 하나의 흐름으로 연결되는 금융 솔루션" light/></Reveal>
@@ -102,83 +159,21 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
 
     {/* Stats */}
     <section style={{ padding: "96px 24px 240px", background: "var(--alt)", position: "relative", overflow: "hidden" }}>
-      {(() => {
-        const cvRef = useRef(null);
-        useEffect(() => {
-          const c = cvRef.current; if (!c) return;
-          const dpr = window.devicePixelRatio || 1;
-          const W = 1400, H = 420;
-          c.width = W * dpr; c.height = H * dpr;
-          c.style.width = W + "px"; c.style.height = H + "px";
-          const ctx = c.getContext("2d");
-          ctx.scale(dpr, dpr);
-          const cx = W / 2, cy = H + 20;
-          const count = 120;
-          const rays = Array.from({length: count}, (_, i) => {
-            const angle = Math.PI + (Math.PI * (i / (count - 1)));
-            const baseLen = 80 + Math.random() * 280;
-            return {
-              angle,
-              baseLen,
-              speed: .3 + Math.random() * .7,
-              phase: Math.random() * Math.PI * 2,
-              nodeR: 1.8 + Math.random() * 2.5,
-              ci: i,
-            };
-          });
-          let t = 0, raf;
-          const draw = () => {
-            ctx.clearRect(0, 0, W, H);
-            t += .003;
-            rays.forEach(r => {
-              const breath = Math.sin(t * r.speed * 3 + r.phase);
-              const len = r.baseLen + breath * 30;
-              const tipX = cx + Math.cos(r.angle) * len;
-              const tipY = cy + Math.sin(r.angle) * len;
-              const progress = r.ci / count;
-              const cr = Math.round(168 - progress * 40);
-              const cg = Math.round(149 - progress * 30 + Math.sin(progress * Math.PI) * 25);
-              const cb = Math.round(134 + progress * 50);
-              const lineAlpha = .12 + breath * .04;
-              ctx.beginPath();
-              ctx.moveTo(cx, cy);
-              ctx.lineTo(tipX, tipY);
-              ctx.strokeStyle = `rgba(${cr},${cg},${cb},${lineAlpha})`;
-              ctx.lineWidth = .8;
-              ctx.stroke();
-              const nodeAlpha = .3 + breath * .15;
-              const glow = ctx.createRadialGradient(tipX, tipY, 0, tipX, tipY, r.nodeR * 3);
-              glow.addColorStop(0, `rgba(${cr},${cg},${cb},${nodeAlpha * .5})`);
-              glow.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
-              ctx.fillStyle = glow;
-              ctx.fillRect(tipX - r.nodeR * 3, tipY - r.nodeR * 3, r.nodeR * 6, r.nodeR * 6);
-              ctx.beginPath();
-              ctx.arc(tipX, tipY, r.nodeR * (.8 + breath * .2), 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(${cr},${cg},${cb},${nodeAlpha})`;
-              ctx.fill();
-            });
-            raf = requestAnimationFrame(draw);
-          };
-          draw();
-          return () => cancelAnimationFrame(raf);
-        }, []);
-        return <canvas ref={cvRef} style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}/>;
-      })()}
+      <StatsCanvas/>
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1 }}>
-      <Reveal><SH label="PROVEN RESULTS" title="숫자로 증명하는 성과" subtitle="가설이 아닌, 시장에서 증명된 결과입니다"/></Reveal>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 24 }}>
-        <Reveal><Stat value={6890} suffix="억+" label="누적 매출채권 중개액"/></Reveal>
-        <Reveal delay={.1}><Stat value={1100} suffix="+" label="누적 회원사"/></Reveal>
-        <Reveal delay={.2}><Stat value={97} suffix="억" label="연 매출액 (2025)"/></Reveal>
-        <Reveal delay={.3}><Stat value={37} suffix="억" label="글로벌 매출 (3개국)"/></Reveal>
+        <Reveal><SH label="PROVEN RESULTS" title="숫자로 증명하는 성과" subtitle="가설이 아닌, 시장에서 증명된 결과입니다"/></Reveal>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 24 }}>
+          <Reveal><Stat value={6890} suffix="억+" label="누적 매출채권 중개액"/></Reveal>
+          <Reveal delay={.1}><Stat value={1100} suffix="+" label="누적 회원사"/></Reveal>
+          <Reveal delay={.2}><Stat value={97} suffix="억" label="연 매출액 (2025)"/></Reveal>
+          <Reveal delay={.3}><Stat value={37} suffix="억" label="글로벌 매출 (3개국)"/></Reveal>
+        </div>
       </div>
-    </div></section>
+    </section>
 
     {/* Awards */}
-    {(()=>{
-      const { awards } = useAwards();
-      if (awards.length === 0) return null;
-      return <section style={{ padding: "96px 24px", background: "#fff" }}><div style={{ maxWidth: 1200, margin: "0 auto" }}>
+    {awards.length > 0 && (
+      <section style={{ padding: "96px 24px", background: "#fff" }}><div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <Reveal><SH label="AWARDS & RECOGNITION" title="공신력 있는 기관이 인정한 성과" subtitle="정부 기관과 글로벌 심사위원단이 검증한 기술력과 사업 실적"/></Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
           {[...awards].sort((a,b)=>b.y.localeCompare(a.y)).map((a,i)=>
@@ -187,32 +182,28 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
               <div><div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:15,marginBottom:4}}>{a.t}</div><div style={{fontSize:13,color:"var(--tm)"}}>{a.o}</div></div>
             </div></Reveal>)}
         </div>
-      </div></section>;
-    })()}
+      </div></section>
+    )}
 
     {/* PRESS COVERAGE */}
-    {(() => {
-      const { press } = usePress();
-      const [idx, setIdx] = useState(0);
-      const maxIdx = Math.max(0, press.length - 3);
-      if (press.length === 0) return null;
-      return <section style={{ padding: "96px 24px", background: "#f8fafc", overflow: "hidden", borderTop: "1px solid #e2e8f0", borderBottom: "1px solid #e2e8f0" }}>
+    {press.length > 0 && (
+      <section style={{ padding: "96px 24px", background: "#f8fafc", overflow: "hidden", borderTop: "1px solid #e2e8f0", borderBottom: "1px solid #e2e8f0" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal><SH label="PRESS COVERAGE" title="언론이 주목하는 276홀딩스"/></Reveal>
           <div style={{ position: "relative" }}>
             {press.length > 3 && <>
-              <button onClick={() => setIdx(Math.max(0, idx - 1))} disabled={idx === 0}
-                style={{ position: "absolute", left: -20, top: "50%", transform: "translateY(-50%)", zIndex: 3, width: 40, height: 40, borderRadius: "50%", border: "1px solid var(--bd)", background: "#fff", cursor: idx === 0 ? "default" : "pointer", opacity: idx === 0 ? .3 : 1, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,.08)", transition: "opacity .2s" }}>
+              <button onClick={() => setPressIdx(Math.max(0, pressIdx - 1))} disabled={pressIdx === 0}
+                style={{ position: "absolute", left: -20, top: "50%", transform: "translateY(-50%)", zIndex: 3, width: 40, height: 40, borderRadius: "50%", border: "1px solid var(--bd)", background: "#fff", cursor: pressIdx === 0 ? "default" : "pointer", opacity: pressIdx === 0 ? .3 : 1, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,.08)", transition: "opacity .2s" }}>
                 <ChevronLeft size={18} color="var(--td)"/>
               </button>
-              <button onClick={() => setIdx(Math.min(maxIdx, idx + 1))} disabled={idx >= maxIdx}
-                style={{ position: "absolute", right: -20, top: "50%", transform: "translateY(-50%)", zIndex: 3, width: 40, height: 40, borderRadius: "50%", border: "1px solid var(--bd)", background: "#fff", cursor: idx >= maxIdx ? "default" : "pointer", opacity: idx >= maxIdx ? .3 : 1, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,.08)", transition: "opacity .2s" }}>
+              <button onClick={() => setPressIdx(Math.min(pressMaxIdx, pressIdx + 1))} disabled={pressIdx >= pressMaxIdx}
+                style={{ position: "absolute", right: -20, top: "50%", transform: "translateY(-50%)", zIndex: 3, width: 40, height: 40, borderRadius: "50%", border: "1px solid var(--bd)", background: "#fff", cursor: pressIdx >= pressMaxIdx ? "default" : "pointer", opacity: pressIdx >= pressMaxIdx ? .3 : 1, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,.08)", transition: "opacity .2s" }}>
                 <ChevronRight size={18} color="var(--td)"/>
               </button>
             </>}
             <div style={{ overflow: "hidden" }}>
-              <div style={{ display: "flex", gap: 20, transition: "transform .4s cubic-bezier(.4,0,.2,1)", transform: `translateX(-${idx * (100 / 3 + 20 / 3 * 100 / 1100)}%)` }}>
-                {[...press].sort((a,b)=>b.date.localeCompare(a.date)).map((p, i) => (
+              <div style={{ display: "flex", gap: 20, transition: "transform .4s cubic-bezier(.4,0,.2,1)", transform: `translateX(-${pressIdx * (100 / 3 + 20 / 3 * 100 / 1100)}%)` }}>
+                {[...press].sort((a,b)=>b.date.localeCompare(a.date)).map((p) => (
                   <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer"
                     style={{ minWidth: "calc((100% - 40px) / 3)", flex: "0 0 calc((100% - 40px) / 3)", borderRadius: 12, border: "1px solid var(--bd)", overflow: "hidden", textDecoration: "none", color: "inherit", transition: "box-shadow .3s, transform .3s", cursor: "pointer" }}
                     onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,.08)"; e.currentTarget.style.transform = "translateY(-4px)"; }}
@@ -232,8 +223,8 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
             </div>
           </div>
         </div>
-      </section>;
-    })()}
+      </section>
+    )}
 
     {/* CTA */}
     <section style={{ padding: "96px 24px", background: "linear-gradient(135deg,var(--ny),#132240)", textAlign: "center", color: "#fff" }}>
