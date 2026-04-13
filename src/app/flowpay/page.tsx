@@ -141,7 +141,7 @@ function FP({ setPage }: { setPage: (id: string) => void }) {
       </div>
     </div></section>
 
-    <section style={{padding:"64px 24px",background:"#f8fafc"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
+    <section style={{padding:"64px 24px",background:"#fff"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
       <Reveal><div style={{textAlign:"center",marginBottom:32}}><div className="slbl">TRUSTED BY 1,100+ PARTNERS</div><h3 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(20px,3vw,28px)",color:"var(--td)",marginBottom:8,letterSpacing:"-.02em"}}>대표적인 원자재 공급 기업</h3><p style={{fontSize:15,color:"var(--tm)"}}>국내 주요 대기업 및 글로벌 기관과 함께합니다</p></div></Reveal>
       <LogoMarquee/>
     </div></section>
