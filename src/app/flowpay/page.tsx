@@ -141,19 +141,6 @@ function FP({ setPage }: { setPage: (id: string) => void }) {
       </div>
     </div></section>
 
-    <section style={{padding:"96px 24px",background:"#fff"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
-      <Reveal><SH label="CUSTOMER IMPACT" title="도입 기업의 실제 성과" subtitle="FlowPay를 도입한 기업의 평균 성과 지표입니다"/></Reveal>
-      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:24,marginTop:48}}>
-        {[{v:"358%",l:"도입 기업 평균 매출 증가율",d:"FlowPay 도입 전 대비"},{v:"179%",l:"순이익 증가율 (수수료 제외)",d:"실제 사업 수익성 개선"},{v:"1.6년",l:"평균 거래 지속 기간",d:"고객당 평균 12회 재거래"},{v:"65%+",l:"재구매 고객 비중",d:"실물 거래 기반 Lock-in 효과"}].map((it,i)=>(
-          <Reveal key={i} delay={i*.1}><div style={{padding:32,background:"var(--alt)",border:"1px solid var(--bd)",borderRadius:12}}>
-            <div style={{fontFamily:"var(--fd)",fontWeight:800,fontSize:40,color:"var(--ny)",letterSpacing:"-.03em"}}>{it.v}</div>
-            <div style={{fontFamily:"var(--fd)",fontWeight:600,fontSize:15,marginTop:8,color:"var(--td)"}}>{it.l}</div>
-            <div style={{fontSize:13,color:"var(--tm)",marginTop:4}}>{it.d}</div>
-          </div></Reveal>
-        ))}
-      </div>
-    </div></section>
-
     <section style={{padding:"64px 24px",background:"#f8fafc"}}><div style={{maxWidth:1200,margin:"0 auto"}}>
       <Reveal><div style={{textAlign:"center",marginBottom:32}}><div className="slbl">TRUSTED BY 1,100+ PARTNERS</div><h3 style={{fontFamily:"var(--fd)",fontWeight:700,fontSize:"clamp(20px,3vw,28px)",color:"var(--td)",marginBottom:8,letterSpacing:"-.02em"}}>대표적인 원자재 공급 기업</h3><p style={{fontSize:15,color:"var(--tm)"}}>국내 주요 대기업 및 글로벌 기관과 함께합니다</p></div></Reveal>
       <LogoMarquee/>
