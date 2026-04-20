@@ -28,8 +28,9 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(30px)",
-        transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
+        transform: visible ? "translateY(0) scale(1)" : "translateY(48px) scale(0.97)",
+        transition: `opacity 0.75s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.75s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
+        height: "100%",
       }}
     >
       {children}

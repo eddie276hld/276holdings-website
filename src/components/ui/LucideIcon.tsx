@@ -16,6 +16,7 @@ export function LI({ icon: Icon, size = 22, color = "var(--br)" }: LIProps) {
       background: color === "var(--br)" ? "rgba(168,149,134,0.08)"
         : color === "var(--bw)" ? "rgba(200,168,130,0.08)"
         : color === "var(--ny)" ? "rgba(15,25,41,0.06)"
+        : color === "var(--nl)" ? "rgba(26,40,68,0.08)"
         : color === "#fff" ? "rgba(255,255,255,0.08)"
         : "rgba(168,149,134,0.08)"
     }}>

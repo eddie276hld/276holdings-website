@@ -11,7 +11,10 @@ function Foot({ setPage }: { setPage: (id: string) => void }) {
         <div><h4 style={{ fontFamily: "var(--fd)", fontWeight: 600, fontSize: 14, marginBottom: 20, color: "rgba(255,255,255,.35)", textTransform: "uppercase", letterSpacing: ".05em" }}>연락처</h4><div style={{ fontSize: 14, color: "rgba(255,255,255,.6)", lineHeight: 2 }}>contact@276holdings.com<br/>02-785-7080<br/>인천광역시 연수구 컨벤시아대로 204</div></div>
       </div>
       <div style={{ borderTop: "1px solid rgba(255,255,255,.06)", paddingTop: 24, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
-        <span style={{ fontSize: 13, color: "rgba(255,255,255,.3)" }}>© 2026 276홀딩스. All rights reserved.</span>
+        <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+          <span style={{ fontSize: 13, color: "rgba(255,255,255,.3)" }}>© 2026 276홀딩스. All rights reserved.</span>
+          <span style={{ fontSize: 13, color: "rgba(255,255,255,.3)" }}>(주)276홀딩스 &nbsp;|&nbsp; 대표 : 신인근 &nbsp;|&nbsp; 사업자등록번호 : 732-86-01599</span>
+        </div>
         <div style={{ display: "flex", gap: 16, alignItems: "center" }}>{[{l:"flowpoint.kr",h:"https://flowpay.kr"},{l:"flowpay.kr",h:"https://flowpoint.kr/flowpays"}].map(s=><a key={s.l} href={s.h} target="_blank" rel="noopener noreferrer" style={{fontSize:13,color:"rgba(255,255,255,.3)",textDecoration:"none",transition:"color .2s"}} onMouseEnter={e=>e.currentTarget.style.color="rgba(255,255,255,.6)"} onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,.3)"}>{s.l}</a>)}<span onClick={()=>setPage("admin")} style={{fontSize:11,color:"rgba(255,255,255,.12)",cursor:"pointer",transition:"color .3s"}} onMouseEnter={e=>e.currentTarget.style.color="rgba(255,255,255,.4)"} onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,.12)"}>Admin</span></div>
       </div>
     </div>
