@@ -17,6 +17,10 @@
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-wrap{overflow:hidden;width:100%;mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 92%,transparent 100%)}
+.marquee-track{display:flex;width:max-content;animation:marquee var(--mdur,60s) linear infinite}
+.marquee-track-rev{display:flex;width:max-content;animation:marquee var(--mdur,60s) linear infinite reverse}
+.marquee-wrap:hover .marquee-track,.marquee-wrap:hover .marquee-track-rev{animation-play-state:paused}
 @keyframes gridP{0%,100%{opacity:.03}50%{opacity:.06}}
 @keyframes orb{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(30px,-20px) scale(1.1)}50%{transform:translate(-20px,20px) scale(.95)}75%{transform:translate(15px,10px) scale(1.05)}}
 .spin{animation:spin 1s linear infinite}
