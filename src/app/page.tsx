@@ -2,7 +2,7 @@
 import { navigateTo } from "@/lib/navigation";
 
 import { useState } from "react";
-import { FileText, Brain, Wallet, Clock, ShieldOff, BarChart3, ChevronLeft, ChevronRight } from "lucide-react";
+import { FileText, Brain, Wallet, Clock, ShieldOff, BarChart3 } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SH } from "@/components/ui/SectionHeader";
 import { Stat } from "@/components/ui/Stat";
@@ -17,8 +17,6 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
   // ✅ 모든 Hook을 컴포넌트 최상단에서 호출
   const { awards } = useAwards();
   const { press } = usePress();
-  const [pressIdx, setPressIdx] = useState(0);
-  const pressMaxIdx = Math.max(0, press.length - 1);
 
   return <>
     <section className="hero-bg hero-section" style={{ display: "flex", flexDirection: "column", justifyContent: "center", position: "relative", overflow: "hidden" }}>
@@ -107,69 +105,62 @@ function Home({ setPage }: { setPage: (id: string) => void }) {
     {awards.length > 0 && (
       <section style={{ padding: "160px 24px", background: "#fff" }}><div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <Reveal><SH title="공신력 있는 기관이 인정한 성과" subtitle="정부 기관과 글로벌 심사위원단이 검증한 기술력과 사업 실적"/></Reveal>
-        <div>
+        <div style={{ display:"flex", flexDirection:"column", marginTop:72 }}>
           {Object.entries(
             [...awards].sort((a,b)=>b.y.localeCompare(a.y)).reduce((acc, a) => { (acc[a.y] = acc[a.y] || []).push(a); return acc; }, {} as Record<string, typeof awards>)
           ).sort(([a],[b]) => b.localeCompare(a)).map(([year, items], gi) => (
             <Reveal key={year} delay={gi*.08}>
-              <div style={{ display:"grid", gridTemplateColumns:"200px 1fr", gap:32, padding:"28px 0", borderBottom:"1px solid var(--bd)" }}>
-                <div style={{ fontFamily:"var(--fd)", fontWeight:700, fontSize:18, color:"var(--td)", paddingTop:2 }}>{year}</div>
-                <div style={{ display:"flex", flexDirection:"column", gap:24 }}>
+              <div style={{ display:"grid", gridTemplateColumns:"120px 1fr", gap:40, padding:"36px 0", borderTop:"1px solid var(--bd)" }}>
+                <div style={{ fontFamily:"var(--fd)", fontWeight:800, fontSize:24, color:"var(--ny)", paddingTop:4 }}>{year}</div>
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))", gap:12 }}>
                   {items.map(a => (
-                    <div key={a.id}>
-                      <div style={{ fontFamily:"var(--fd)", fontWeight:600, fontSize:18, color:"var(--td)", lineHeight:1.5 }}>{a.t}</div>
-                      {a.o && <div style={{ fontSize:16, color:"var(--tm)", marginTop:4 }}>{a.o}</div>}
+                    <div key={a.id} style={{ background:"#f8fafc", borderRadius:10, padding:"16px 20px" }}>
+                      <div style={{ fontFamily:"var(--fd)", fontWeight:600, fontSize:16, color:"var(--td)", lineHeight:1.4 }}>{a.t}</div>
+                      {a.o && <div style={{ fontSize:13, color:"var(--tm)", marginTop:4 }}>{a.o}</div>}
                     </div>
                   ))}
                 </div>
               </div>
             </Reveal>
           ))}
+          <div style={{ borderTop:"1px solid var(--bd)" }}/>
         </div>
       </div></section>
     )}
 
     {/* PRESS COVERAGE */}
-    {press.length > 0 && (() => {
-      const sorted = [...press].sort((a,b)=>b.date.localeCompare(a.date));
-      const cur = sorted[pressIdx];
-      return (
-        <section style={{ padding: "160px 24px", background: "#f8fafc", borderBottom: "1px solid #e2e8f0" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-            <Reveal><SH title="언론이 주목하는 276홀딩스"/></Reveal>
-            <a href={cur.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none", color:"inherit", display:"block" }}>
-              <div style={{ background:"#eef0f3", borderRadius:20, padding:"64px 80px", textAlign:"center", position:"relative", minHeight:280 }}>
-                {/* 우측 화살표 */}
-                {pressIdx < pressMaxIdx && (
-                  <button onClick={e => { e.preventDefault(); setPressIdx(pressIdx + 1); }}
-                    style={{ position:"absolute", right:24, top:"50%", transform:"translateY(-50%)", width:40, height:40, borderRadius:"50%", border:"1px solid var(--bd)", background:"#fff", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", boxShadow:"0 2px 8px rgba(0,0,0,.08)" }}>
-                    <ChevronRight size={18} color="var(--td)"/>
-                  </button>
-                )}
-                {pressIdx > 0 && (
-                  <button onClick={e => { e.preventDefault(); setPressIdx(pressIdx - 1); }}
-                    style={{ position:"absolute", left:24, top:"50%", transform:"translateY(-50%)", width:40, height:40, borderRadius:"50%", border:"1px solid var(--bd)", background:"#fff", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", boxShadow:"0 2px 8px rgba(0,0,0,.08)" }}>
-                  <ChevronLeft size={18} color="var(--td)"/>
-                  </button>
-                )}
-                {/* 매체명 뱃지 */}
-                <div style={{ display:"inline-block", border:"1px solid #ccc", borderRadius:999, padding:"4px 14px", fontSize:13, color:"var(--tm)", marginBottom:12 }}>{cur.media}</div>
-                <div style={{ fontSize:14, color:"var(--tm)", marginBottom:24, fontFamily:"var(--fd)" }}>{cur.date}</div>
-                <h3 style={{ fontFamily:"var(--fd)", fontWeight:700, fontSize:"clamp(20px,2.5vw,28px)", color:"var(--td)", lineHeight:1.4, marginBottom:20, maxWidth:640, margin:"0 auto 20px" }}>{cur.title}</h3>
-                <p style={{ fontSize:16, color:"var(--tm)", lineHeight:1.7, maxWidth:560, margin:"0 auto 32px" }}>{cur.excerpt}</p>
-                {/* 도트 */}
-                <div style={{ display:"flex", gap:8, justifyContent:"center" }}>
-                  {sorted.map((_,i) => (
-                    <button key={i} onClick={e => { e.preventDefault(); setPressIdx(i); }}
-                      style={{ width: i===pressIdx ? 20 : 8, height:8, borderRadius:999, background: i===pressIdx ? "var(--td)" : "#ccc", border:"none", cursor:"pointer", padding:0, transition:"all .3s" }}/>
-                  ))}
-                </div>
-              </div>
-            </a>
+    {press.length > 0 && (
+      <section style={{ padding:"160px 24px", background:"#f8fafc" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          <Reveal><SH title="언론이 주목하는 276홀딩스"/></Reveal>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))", gap:20, marginTop:72 }}>
+            {[...press].sort((a,b)=>b.date.localeCompare(a.date)).map((p, i) => (
+              <Reveal key={p.id} delay={i*.08}>
+                <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none", color:"inherit", display:"flex", flexDirection:"column", background:"#fff", borderRadius:12, overflow:"hidden", height:"100%", transition:"box-shadow .2s" }}
+                  onMouseEnter={e=>{e.currentTarget.style.boxShadow="0 8px 32px rgba(0,0,0,.1)"}}
+                  onMouseLeave={e=>{e.currentTarget.style.boxShadow="none"}}
+                >
+                  {p.image
+                    ? <img src={p.image} alt={p.title} style={{ width:"100%", height:180, objectFit:"cover" }}/>
+                    : <div style={{ width:"100%", height:180, background:"linear-gradient(135deg,#0f1929,#1a2844)", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                        <span style={{ fontFamily:"var(--fd)", fontWeight:800, fontSize:28, color:"rgba(255,255,255,.15)", letterSpacing:"-.02em" }}>276</span>
+                      </div>
+                  }
+                  <div style={{ padding:"24px 28px", display:"flex", flexDirection:"column", flex:1 }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:12 }}>
+                      <span style={{ fontSize:12, fontWeight:700, color:"var(--ny)", background:"rgba(15,25,41,.07)", padding:"3px 10px", borderRadius:4 }}>{p.media}</span>
+                      <span style={{ fontSize:12, color:"var(--tl)" }}>{p.date}</span>
+                    </div>
+                    <h3 style={{ fontFamily:"var(--fd)", fontWeight:700, fontSize:17, color:"var(--td)", lineHeight:1.5, marginBottom:10 }}>{p.title}</h3>
+                    <p style={{ fontSize:14, color:"var(--tm)", lineHeight:1.7, flex:1 }}>{p.excerpt}</p>
+                  </div>
+                </a>
+              </Reveal>
+            ))}
           </div>
-        </section>
-      );
-    })()}
+        </div>
+      </section>
+    )}
 
     {/* CTA */}
     <section style={{ padding: "120px 24px", background: "linear-gradient(135deg,var(--ny),#132240)", textAlign: "center", color: "#fff" }}>
